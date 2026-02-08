@@ -86,7 +86,3 @@ dependencies = [
  "quote",
  "syn",
 ]
-
-[[bin]]
-name = "koshka2"
-path = "src/main.rs"

@@ -1,6 +1,6 @@
 use std::process::exit;
 use std::fmt::{self, format};
-use crate::{video2::VideoController2, fpu::KoshkaFPU, paging::Page};
+use crate::{video2::VideoController2, paging::Page};
 pub const AX: usize = 0;
 pub const BX: usize = 1;
 pub const CX: usize = 2;
@@ -14,7 +14,6 @@ pub struct KoshkaCPU2 {
     pub pc: u32,
     pub sp: u32,
     pub kflags: u8,
-    pub fpu: KoshkaFPU,
     pub current_page: u8,
 }
 
@@ -28,7 +27,7 @@ impl KoshkaCPU2 {
             sp: 0xFFFE,
             kflags: 0b00000000,
             //*       CNZ--BI-
-            fpu: KoshkaFPU::new(),
+            
             current_page: 0,
         }
     }

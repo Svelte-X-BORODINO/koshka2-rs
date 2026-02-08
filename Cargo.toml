@@ -5,3 +5,7 @@ edition = "2024"
 
 [dependencies]
 half = "2.7.1"
+
+[[bin]]
+name = "koshka2"
+path = "main.rs"

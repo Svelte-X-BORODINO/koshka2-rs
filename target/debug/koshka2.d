@@ -1,0 +1,1 @@
+/mnt/c/Users/katef/koshka2-rs/target/debug/koshka2: /mnt/c/Users/katef/koshka2-rs/cpu2.rs /mnt/c/Users/katef/koshka2-rs/debug.rs /mnt/c/Users/katef/koshka2-rs/main.rs /mnt/c/Users/katef/koshka2-rs/paging.rs /mnt/c/Users/katef/koshka2-rs/video2.rs
