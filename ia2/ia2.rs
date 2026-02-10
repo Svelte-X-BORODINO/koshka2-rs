@@ -4,7 +4,7 @@ pub type InvokeFunction = fn(&mut KoshkaCPU2);
 pub type IAT = HashMap<u8, InvokeFunction>;
 
 
-pub struct InvokeAction;
+pub struct InvokeAction2;
 
 pub fn putc(cpu: &mut KoshkaCPU2) {
     print!("{}", cpu.memory[cpu.kadv as usize] as char);
@@ -14,7 +14,7 @@ pub fn readc(cpu: &mut KoshkaCPU2) {
     io::stdin().read_exact(&mut cpu.k[BX])
 }
 
-impl InvokeAction {
+impl InvokeAction2 {
     pub fn init() -> IAT {
         let mut table: IAT;
         table.insert(1, putc as InvokeFunction);
@@ -23,6 +23,6 @@ impl InvokeAction {
     }
 
     pub fn invoke(ia_table: &IAT, num: u8) {
-        if let Some(func) = ia_table.get() {}
+        
     }
 }

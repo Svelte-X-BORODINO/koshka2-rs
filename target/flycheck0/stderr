@@ -1,5 +1,5 @@
-   0.032592600s  INFO prepare_target{force=false package_id=koshka2-rs v0.1.0 (C:\Users\katef\koshka2-rs) target="koshka2"}: cargo::core::compiler::fingerprint: fingerprint error for koshka2-rs v0.1.0 (C:\Users\katef\koshka2-rs)/Check { test: false }/TargetInner { name: "koshka2", doc: true, ..: with_path("C:\\Users\\katef\\koshka2-rs\\main.rs", Edition2024) }
-   0.032658700s  INFO prepare_target{force=false package_id=koshka2-rs v0.1.0 (C:\Users\katef\koshka2-rs) target="koshka2"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\katef\koshka2-rs\target\debug\.fingerprint\koshka2-rs-5edfbc3057217ad8\bin-koshka2`
+   0.389910000s  INFO prepare_target{force=false package_id=koshka2-rs v0.1.0 (C:\Users\katef\koshka2-rs) target="koshka2"}: cargo::core::compiler::fingerprint: fingerprint error for koshka2-rs v0.1.0 (C:\Users\katef\koshka2-rs)/Check { test: false }/TargetInner { name: "koshka2", doc: true, ..: with_path("C:\\Users\\katef\\koshka2-rs\\main.rs", Edition2024) }
+   0.390503900s  INFO prepare_target{force=false package_id=koshka2-rs v0.1.0 (C:\Users\katef\koshka2-rs) target="koshka2"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\katef\koshka2-rs\target\debug\.fingerprint\koshka2-rs-5edfbc3057217ad8\bin-koshka2`
 
 Caused by:
     Не удается найти указанный файл. (os error 2)
@@ -26,8 +26,8 @@ Stack backtrace:
   18: git_midx_writer_dump
   19: BaseThreadInitThunk
   20: RtlUserThreadStart
-   0.049237300s  INFO prepare_target{force=false package_id=half v2.7.1 target="half"}: cargo::core::compiler::fingerprint: fingerprint error for half v2.7.1/Check { test: false }/TargetInner { ..: lib_target("half", ["lib"], "C:\\Users\\katef\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\half-2.7.1\\src\\lib.rs", Edition2021) }
-   0.049270200s  INFO prepare_target{force=false package_id=half v2.7.1 target="half"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\katef\koshka2-rs\target\debug\.fingerprint\half-9b2e7d5823406608\lib-half`
+   0.405099500s  INFO prepare_target{force=false package_id=half v2.7.1 target="half"}: cargo::core::compiler::fingerprint: fingerprint error for half v2.7.1/Check { test: false }/TargetInner { ..: lib_target("half", ["lib"], "C:\\Users\\katef\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\half-2.7.1\\src\\lib.rs", Edition2021) }
+   0.405518700s  INFO prepare_target{force=false package_id=half v2.7.1 target="half"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\katef\koshka2-rs\target\debug\.fingerprint\half-9b2e7d5823406608\lib-half`
 
 Caused by:
     Не удается найти указанный файл. (os error 2)
@@ -55,8 +55,8 @@ Stack backtrace:
   19: git_midx_writer_dump
   20: BaseThreadInitThunk
   21: RtlUserThreadStart
-   0.061525200s  INFO prepare_target{force=false package_id=zerocopy v0.8.31 target="zerocopy"}: cargo::core::compiler::fingerprint: fingerprint error for zerocopy v0.8.31/Check { test: false }/TargetInner { ..: lib_target("zerocopy", ["lib"], "C:\\Users\\katef\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\zerocopy-0.8.31\\src\\lib.rs", Edition2021) }
-   0.061564900s  INFO prepare_target{force=false package_id=zerocopy v0.8.31 target="zerocopy"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\katef\koshka2-rs\target\debug\.fingerprint\zerocopy-976059f0009933e8\lib-zerocopy`
+   0.416949500s  INFO prepare_target{force=false package_id=zerocopy v0.8.31 target="zerocopy"}: cargo::core::compiler::fingerprint: fingerprint error for zerocopy v0.8.31/Check { test: false }/TargetInner { ..: lib_target("zerocopy", ["lib"], "C:\\Users\\katef\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\zerocopy-0.8.31\\src\\lib.rs", Edition2021) }
+   0.416980200s  INFO prepare_target{force=false package_id=zerocopy v0.8.31 target="zerocopy"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\katef\koshka2-rs\target\debug\.fingerprint\zerocopy-976059f0009933e8\lib-zerocopy`
 
 Caused by:
     Не удается найти указанный файл. (os error 2)
@@ -85,8 +85,8 @@ Stack backtrace:
   20: git_midx_writer_dump
   21: BaseThreadInitThunk
   22: RtlUserThreadStart
-   0.062409500s  INFO prepare_target{force=false package_id=zerocopy v0.8.31 target="build-script-build"}: cargo::core::compiler::fingerprint: fingerprint error for zerocopy v0.8.31/RunCustomBuild/TargetInner { ..: custom_build_target("build-script-build", "C:\\Users\\katef\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\zerocopy-0.8.31\\build.rs", Edition2021) }
-   0.062429700s  INFO prepare_target{force=false package_id=zerocopy v0.8.31 target="build-script-build"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\katef\koshka2-rs\target\debug\.fingerprint\zerocopy-e0adad8312c7b1f6\run-build-script-build-script-build`
+   0.418804300s  INFO prepare_target{force=false package_id=zerocopy v0.8.31 target="build-script-build"}: cargo::core::compiler::fingerprint: fingerprint error for zerocopy v0.8.31/RunCustomBuild/TargetInner { ..: custom_build_target("build-script-build", "C:\\Users\\katef\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\zerocopy-0.8.31\\build.rs", Edition2021) }
+   0.418821600s  INFO prepare_target{force=false package_id=zerocopy v0.8.31 target="build-script-build"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\katef\koshka2-rs\target\debug\.fingerprint\zerocopy-e0adad8312c7b1f6\run-build-script-build-script-build`
 
 Caused by:
     Не удается найти указанный файл. (os error 2)
@@ -117,8 +117,8 @@ Stack backtrace:
   22: git_midx_writer_dump
   23: BaseThreadInitThunk
   24: RtlUserThreadStart
-   0.062583900s  INFO prepare_target{force=false package_id=zerocopy v0.8.31 target="build-script-build"}: cargo::core::compiler::fingerprint: fingerprint error for zerocopy v0.8.31/Build/TargetInner { ..: custom_build_target("build-script-build", "C:\\Users\\katef\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\zerocopy-0.8.31\\build.rs", Edition2021) }
-   0.062595300s  INFO prepare_target{force=false package_id=zerocopy v0.8.31 target="build-script-build"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\katef\koshka2-rs\target\debug\.fingerprint\zerocopy-7b19b1a355a62ef4\build-script-build-script-build`
+   0.419299300s  INFO prepare_target{force=false package_id=zerocopy v0.8.31 target="build-script-build"}: cargo::core::compiler::fingerprint: fingerprint error for zerocopy v0.8.31/Build/TargetInner { ..: custom_build_target("build-script-build", "C:\\Users\\katef\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\zerocopy-0.8.31\\build.rs", Edition2021) }
+   0.419312500s  INFO prepare_target{force=false package_id=zerocopy v0.8.31 target="build-script-build"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\katef\koshka2-rs\target\debug\.fingerprint\zerocopy-7b19b1a355a62ef4\build-script-build-script-build`
 
 Caused by:
     Не удается найти указанный файл. (os error 2)
@@ -149,8 +149,8 @@ Stack backtrace:
   22: git_midx_writer_dump
   23: BaseThreadInitThunk
   24: RtlUserThreadStart
-   0.063098400s  INFO prepare_target{force=false package_id=zerocopy-derive v0.8.31 target="zerocopy_derive"}: cargo::core::compiler::fingerprint: fingerprint error for zerocopy-derive v0.8.31/Build/TargetInner { for_host: true, proc_macro: true, ..: lib_target("zerocopy_derive", ["proc-macro"], "C:\\Users\\katef\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\zerocopy-derive-0.8.31\\src\\lib.rs", Edition2021) }
-   0.063117900s  INFO prepare_target{force=false package_id=zerocopy-derive v0.8.31 target="zerocopy_derive"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\katef\koshka2-rs\target\debug\.fingerprint\zerocopy-derive-687e8ab5eb18c6b1\lib-zerocopy_derive`
+   0.420167000s  INFO prepare_target{force=false package_id=zerocopy-derive v0.8.31 target="zerocopy_derive"}: cargo::core::compiler::fingerprint: fingerprint error for zerocopy-derive v0.8.31/Build/TargetInner { for_host: true, proc_macro: true, ..: lib_target("zerocopy_derive", ["proc-macro"], "C:\\Users\\katef\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\zerocopy-derive-0.8.31\\src\\lib.rs", Edition2021) }
+   0.420182100s  INFO prepare_target{force=false package_id=zerocopy-derive v0.8.31 target="zerocopy_derive"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\katef\koshka2-rs\target\debug\.fingerprint\zerocopy-derive-687e8ab5eb18c6b1\lib-zerocopy_derive`
 
 Caused by:
     Не удается найти указанный файл. (os error 2)
@@ -180,8 +180,8 @@ Stack backtrace:
   21: git_midx_writer_dump
   22: BaseThreadInitThunk
   23: RtlUserThreadStart
-   0.063409700s  INFO prepare_target{force=false package_id=proc-macro2 v1.0.103 target="proc_macro2"}: cargo::core::compiler::fingerprint: fingerprint error for proc-macro2 v1.0.103/Build/TargetInner { ..: lib_target("proc_macro2", ["lib"], "C:\\Users\\katef\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\proc-macro2-1.0.103\\src\\lib.rs", Edition2021) }
-   0.063424000s  INFO prepare_target{force=false package_id=proc-macro2 v1.0.103 target="proc_macro2"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\katef\koshka2-rs\target\debug\.fingerprint\proc-macro2-3dd8df4566541d40\lib-proc_macro2`
+   0.420577800s  INFO prepare_target{force=false package_id=proc-macro2 v1.0.103 target="proc_macro2"}: cargo::core::compiler::fingerprint: fingerprint error for proc-macro2 v1.0.103/Build/TargetInner { ..: lib_target("proc_macro2", ["lib"], "C:\\Users\\katef\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\proc-macro2-1.0.103\\src\\lib.rs", Edition2021) }
+   0.420590000s  INFO prepare_target{force=false package_id=proc-macro2 v1.0.103 target="proc_macro2"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\katef\koshka2-rs\target\debug\.fingerprint\proc-macro2-3dd8df4566541d40\lib-proc_macro2`
 
 Caused by:
     Не удается найти указанный файл. (os error 2)
@@ -212,8 +212,8 @@ Stack backtrace:
   22: git_midx_writer_dump
   23: BaseThreadInitThunk
   24: RtlUserThreadStart
-   0.064081200s  INFO prepare_target{force=false package_id=proc-macro2 v1.0.103 target="build-script-build"}: cargo::core::compiler::fingerprint: fingerprint error for proc-macro2 v1.0.103/RunCustomBuild/TargetInner { ..: custom_build_target("build-script-build", "C:\\Users\\katef\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\proc-macro2-1.0.103\\build.rs", Edition2021) }
-   0.064097200s  INFO prepare_target{force=false package_id=proc-macro2 v1.0.103 target="build-script-build"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\katef\koshka2-rs\target\debug\.fingerprint\proc-macro2-d397f9928fbd58b2\run-build-script-build-script-build`
+   0.421558800s  INFO prepare_target{force=false package_id=proc-macro2 v1.0.103 target="build-script-build"}: cargo::core::compiler::fingerprint: fingerprint error for proc-macro2 v1.0.103/RunCustomBuild/TargetInner { ..: custom_build_target("build-script-build", "C:\\Users\\katef\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\proc-macro2-1.0.103\\build.rs", Edition2021) }
+   0.421572100s  INFO prepare_target{force=false package_id=proc-macro2 v1.0.103 target="build-script-build"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\katef\koshka2-rs\target\debug\.fingerprint\proc-macro2-d397f9928fbd58b2\run-build-script-build-script-build`
 
 Caused by:
     Не удается найти указанный файл. (os error 2)
@@ -246,8 +246,8 @@ Stack backtrace:
   24: git_midx_writer_dump
   25: BaseThreadInitThunk
   26: RtlUserThreadStart
-   0.064238700s  INFO prepare_target{force=false package_id=proc-macro2 v1.0.103 target="build-script-build"}: cargo::core::compiler::fingerprint: fingerprint error for proc-macro2 v1.0.103/Build/TargetInner { ..: custom_build_target("build-script-build", "C:\\Users\\katef\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\proc-macro2-1.0.103\\build.rs", Edition2021) }
-   0.064250100s  INFO prepare_target{force=false package_id=proc-macro2 v1.0.103 target="build-script-build"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\katef\koshka2-rs\target\debug\.fingerprint\proc-macro2-8c6f04521555d3d2\build-script-build-script-build`
+   0.421707800s  INFO prepare_target{force=false package_id=proc-macro2 v1.0.103 target="build-script-build"}: cargo::core::compiler::fingerprint: fingerprint error for proc-macro2 v1.0.103/Build/TargetInner { ..: custom_build_target("build-script-build", "C:\\Users\\katef\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\proc-macro2-1.0.103\\build.rs", Edition2021) }
+   0.421716700s  INFO prepare_target{force=false package_id=proc-macro2 v1.0.103 target="build-script-build"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\katef\koshka2-rs\target\debug\.fingerprint\proc-macro2-8c6f04521555d3d2\build-script-build-script-build`
 
 Caused by:
     Не удается найти указанный файл. (os error 2)
@@ -280,8 +280,8 @@ Stack backtrace:
   24: git_midx_writer_dump
   25: BaseThreadInitThunk
   26: RtlUserThreadStart
-   0.064867400s  INFO prepare_target{force=false package_id=quote v1.0.42 target="quote"}: cargo::core::compiler::fingerprint: fingerprint error for quote v1.0.42/Build/TargetInner { ..: lib_target("quote", ["lib"], "C:\\Users\\katef\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\quote-1.0.42\\src\\lib.rs", Edition2018) }
-   0.064882900s  INFO prepare_target{force=false package_id=quote v1.0.42 target="quote"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\katef\koshka2-rs\target\debug\.fingerprint\quote-a5fc88b8c47084ed\lib-quote`
+   0.432323500s  INFO prepare_target{force=false package_id=quote v1.0.42 target="quote"}: cargo::core::compiler::fingerprint: fingerprint error for quote v1.0.42/Build/TargetInner { ..: lib_target("quote", ["lib"], "C:\\Users\\katef\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\quote-1.0.42\\src\\lib.rs", Edition2018) }
+   0.432358500s  INFO prepare_target{force=false package_id=quote v1.0.42 target="quote"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\katef\koshka2-rs\target\debug\.fingerprint\quote-a5fc88b8c47084ed\lib-quote`
 
 Caused by:
     Не удается найти указанный файл. (os error 2)
@@ -312,8 +312,8 @@ Stack backtrace:
   22: git_midx_writer_dump
   23: BaseThreadInitThunk
   24: RtlUserThreadStart
-   0.065552500s  INFO prepare_target{force=false package_id=quote v1.0.42 target="build-script-build"}: cargo::core::compiler::fingerprint: fingerprint error for quote v1.0.42/RunCustomBuild/TargetInner { ..: custom_build_target("build-script-build", "C:\\Users\\katef\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\quote-1.0.42\\build.rs", Edition2018) }
-   0.065580200s  INFO prepare_target{force=false package_id=quote v1.0.42 target="build-script-build"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\katef\koshka2-rs\target\debug\.fingerprint\quote-776391909d1f9746\run-build-script-build-script-build`
+   0.433704500s  INFO prepare_target{force=false package_id=quote v1.0.42 target="build-script-build"}: cargo::core::compiler::fingerprint: fingerprint error for quote v1.0.42/RunCustomBuild/TargetInner { ..: custom_build_target("build-script-build", "C:\\Users\\katef\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\quote-1.0.42\\build.rs", Edition2018) }
+   0.433723400s  INFO prepare_target{force=false package_id=quote v1.0.42 target="build-script-build"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\katef\koshka2-rs\target\debug\.fingerprint\quote-776391909d1f9746\run-build-script-build-script-build`
 
 Caused by:
     Не удается найти указанный файл. (os error 2)
@@ -346,8 +346,8 @@ Stack backtrace:
   24: git_midx_writer_dump
   25: BaseThreadInitThunk
   26: RtlUserThreadStart
-   0.065730700s  INFO prepare_target{force=false package_id=quote v1.0.42 target="build-script-build"}: cargo::core::compiler::fingerprint: fingerprint error for quote v1.0.42/Build/TargetInner { ..: custom_build_target("build-script-build", "C:\\Users\\katef\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\quote-1.0.42\\build.rs", Edition2018) }
-   0.065741700s  INFO prepare_target{force=false package_id=quote v1.0.42 target="build-script-build"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\katef\koshka2-rs\target\debug\.fingerprint\quote-529f8dbcd0aede73\build-script-build-script-build`
+   0.433872300s  INFO prepare_target{force=false package_id=quote v1.0.42 target="build-script-build"}: cargo::core::compiler::fingerprint: fingerprint error for quote v1.0.42/Build/TargetInner { ..: custom_build_target("build-script-build", "C:\\Users\\katef\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\quote-1.0.42\\build.rs", Edition2018) }
+   0.433882300s  INFO prepare_target{force=false package_id=quote v1.0.42 target="build-script-build"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\katef\koshka2-rs\target\debug\.fingerprint\quote-529f8dbcd0aede73\build-script-build-script-build`
 
 Caused by:
     Не удается найти указанный файл. (os error 2)
@@ -380,8 +380,8 @@ Stack backtrace:
   24: git_midx_writer_dump
   25: BaseThreadInitThunk
   26: RtlUserThreadStart
-   0.066186600s  INFO prepare_target{force=false package_id=syn v2.0.111 target="syn"}: cargo::core::compiler::fingerprint: fingerprint error for syn v2.0.111/Build/TargetInner { ..: lib_target("syn", ["lib"], "C:\\Users\\katef\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\syn-2.0.111\\src\\lib.rs", Edition2021) }
-   0.066201700s  INFO prepare_target{force=false package_id=syn v2.0.111 target="syn"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\katef\koshka2-rs\target\debug\.fingerprint\syn-0b40e7ddc0e0b398\lib-syn`
+   0.434647500s  INFO prepare_target{force=false package_id=syn v2.0.111 target="syn"}: cargo::core::compiler::fingerprint: fingerprint error for syn v2.0.111/Build/TargetInner { ..: lib_target("syn", ["lib"], "C:\\Users\\katef\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\syn-2.0.111\\src\\lib.rs", Edition2021) }
+   0.434663200s  INFO prepare_target{force=false package_id=syn v2.0.111 target="syn"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\katef\koshka2-rs\target\debug\.fingerprint\syn-0b40e7ddc0e0b398\lib-syn`
 
 Caused by:
     Не удается найти указанный файл. (os error 2)
@@ -412,8 +412,8 @@ Stack backtrace:
   22: git_midx_writer_dump
   23: BaseThreadInitThunk
   24: RtlUserThreadStart
-   0.066548900s  INFO prepare_target{force=false package_id=koshka2-rs v0.1.0 (C:\Users\katef\koshka2-rs) target="koshka2"}: cargo::core::compiler::fingerprint: fingerprint error for koshka2-rs v0.1.0 (C:\Users\katef\koshka2-rs)/Check { test: true }/TargetInner { name: "koshka2", doc: true, ..: with_path("C:\\Users\\katef\\koshka2-rs\\main.rs", Edition2024) }
-   0.066565800s  INFO prepare_target{force=false package_id=koshka2-rs v0.1.0 (C:\Users\katef\koshka2-rs) target="koshka2"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\katef\koshka2-rs\target\debug\.fingerprint\koshka2-rs-b2426b1e60b12633\test-bin-koshka2`
+   0.435162600s  INFO prepare_target{force=false package_id=koshka2-rs v0.1.0 (C:\Users\katef\koshka2-rs) target="koshka2"}: cargo::core::compiler::fingerprint: fingerprint error for koshka2-rs v0.1.0 (C:\Users\katef\koshka2-rs)/Check { test: true }/TargetInner { name: "koshka2", doc: true, ..: with_path("C:\\Users\\katef\\koshka2-rs\\main.rs", Edition2024) }
+   0.435176000s  INFO prepare_target{force=false package_id=koshka2-rs v0.1.0 (C:\Users\katef\koshka2-rs) target="koshka2"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\katef\koshka2-rs\target\debug\.fingerprint\koshka2-rs-b2426b1e60b12633\test-bin-koshka2`
 
 Caused by:
     Не удается найти указанный файл. (os error 2)

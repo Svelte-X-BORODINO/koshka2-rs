@@ -1,6 +1,6 @@
 use std::process::exit;
 use std::fmt::{self, format};
-use crate::{video2::VideoController2, paging::Page};
+use crate::{video2::VideoController2, paging::Page, ia2::InvokeAction2};
 pub const AX: usize = 0;
 pub const BX: usize = 1;
 pub const CX: usize = 2;
@@ -72,7 +72,7 @@ impl KoshkaCPU2 {
 
     pub fn show_stack(&self) {
         let start = (self.sp + 1) as usize;
-        let end = 0xFFFE as usize;
+        let end = self.sp as usize;
         
         if start > end {
             return;

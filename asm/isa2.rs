@@ -92,8 +92,8 @@ impl Instruction2 {
     }
 
     pub fn Ldw(cpu: &mut KoshkaCPU2, dest: u32, data: u16) {
-        cpu.memory[dest as usize] = data & 0xFF;
-        cpu.memory[dest + 1 as usize] = data >> 8;
+        cpu.memory[dest as usize] = data as u8;
+        cpu.memory[dest + 1 as usize] = data >> 8 as u8;
     }
 
     pub fn Push(cpu: &mut KoshkaCPU2, value: u16) {
@@ -102,7 +102,7 @@ impl Instruction2 {
     }
 
     pub fn PushR(cpu: &mut KoshkaCPU2, reg: u16) {
-        cpu.push(cpu.k[reg as usize]);
+        cpu.push16(cpu.k[reg as usize]);
         Common(cpu, 2);
     }
 
@@ -153,7 +153,7 @@ impl Instruction2 {
         cpu.pc = addr;
     }
 
-    pub fn Ret(cpu: &mut KoshkaCPU2) {
+    pub fn Done(cpu: &mut KoshkaCPU2) {
         cpu.pc = cpu.pop();
     }
 
