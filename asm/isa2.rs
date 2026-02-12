@@ -1,5 +1,6 @@
-use crate::cpu::KoshkaCPU2;
+use crate::cpu2::KoshkaCPU2;
 use crate::debug::KoshkaDB;
+use crate::cpu2::{AX, BX, CX, DX};
 fn Common(cpu: &mut KoshkaCPU2, n: u32) -> u32 {
     cpu.pc = cpu.pc.wrapping_add(n);
     n
@@ -27,64 +28,53 @@ pub struct Instruction2;
 
 impl Instruction2 {
     pub fn None(cpu: &mut KoshkaCPU2) {
-        Common(cpu, 1);
     }
 
     pub fn Mov(cpu: &mut KoshkaCPU2, reg: u16, value: u16) {
         cpu.k[reg as usize] = value;
-        Common(cpu, 2);
     }
 
     pub fn MovRR(cpu: &mut KoshkaCPU2, reg1: u16, reg2: u16) {
         cpu.k[reg1 as usize] = cpu.k[reg2 as usize];
-        Common(cpu, 2);
     }
 
     pub fn Add(cpu: &mut KoshkaCPU2, reg: u16, value: u16) {
         cpu.k[reg as usize] = cpu.k[reg as usize].wrapping_add(value);
-        Common(cpu, 2);
     }
 
     pub fn AddRR(cpu: &mut KoshkaCPU2, reg1: u16, reg2: u16) {
         cpu.k[reg1 as usize] = cpu.k[reg1 as usize].wrapping_add(cpu.k[reg2 as usize]);
-        Common(cpu, 2);
 
     }
 
     pub fn Sub(cpu: &mut KoshkaCPU2, reg: u16, value: u16) {
         cpu.k[reg as usize] = cpu.k[reg as usize].wrapping_sub(value);
-        Common(cpu, 2);
     }
 
     pub fn SubRR(cpu: &mut KoshkaCPU2, reg1: u16, reg2: u16) {
         cpu.k[reg1 as usize] = cpu.k[reg1 as usize].wrapping_sub(cpu.k[reg2 as usize]);
-        Common(cpu, 2);
     }
 
     pub fn Mul(cpu: &mut KoshkaCPU2, reg: u16, value: u16) {
         cpu.k[reg as usize] = cpu.k[reg as usize].wrapping_mul(value);
-        Common(cpu, 2);
     }
 
     pub fn MulRR(cpu: &mut KoshkaCPU2, reg1: u16, reg2: u16) {
         cpu.k[reg1 as usize] = cpu.k[reg1 as usize].wrapping_mul(cpu.k[reg2 as usize]);
-        Common(cpu, 2);
     }
 
     pub fn Div(cpu: &mut KoshkaCPU2, reg: u16, value: u16) {
         if value == 0 {
-            panic_cpu("div_by_zero");
+            cpu.panic_cpu("div_by_zero");
         }
         cpu.k[reg as usize] = cpu.k[reg as usize].wrapping_div(value);
-        Common(cpu, 2);
     }
 
     pub fn DivRR(cpu: &mut KoshkaCPU2, reg1: u16, reg2: u16) {
-        if cpu.k[reg2] == 0 {
-            panic!("div_by_zero");
+        if cpu.k[reg2 as usize] == 0 {
+            cpu.panic_cpu("div_by_zero");
         }
         cpu.k[reg1 as usize] = cpu.k[reg1 as usize].wrapping_div(cpu.k[reg2 as usize]);
-        Common(cpu, 2);
     }
 
     pub fn Ldb(cpu: &mut KoshkaCPU2, dest: u32, data: u8) {
@@ -93,22 +83,23 @@ impl Instruction2 {
 
     pub fn Ldw(cpu: &mut KoshkaCPU2, dest: u32, data: u16) {
         cpu.memory[dest as usize] = data as u8;
-        cpu.memory[dest + 1 as usize] = data >> 8 as u8;
+        cpu.memory[dest.wrapping_add(1) as usize] = (data >> 8 as u8) as u8;
     }
 
-    pub fn Push(cpu: &mut KoshkaCPU2, value: u16) {
-        cpu.push(value);
-        Common(cpu, 2);
+    pub fn Push8(cpu: &mut KoshkaCPU2, value: u16) {
+        cpu.push8(value as u8);
+    }
+
+    pub fn Push16(cpu: &mut KoshkaCPU2, value: u16) {
+        cpu.push16(value as u16);
     }
 
     pub fn PushR(cpu: &mut KoshkaCPU2, reg: u16) {
         cpu.push16(cpu.k[reg as usize]);
-        Common(cpu, 2);
     }
 
     pub fn Pop(cpu: &mut KoshkaCPU2, reg: u16) {
-        cpu.k[reg as usize] = cpu.pop();
-        Common(cpu, 2);
+        cpu.k[reg as usize] = cpu.pop8().into();
 
     }
 
@@ -128,7 +119,6 @@ impl Instruction2 {
         if !ZF(cpu) {
             Self::Goto(cpu, addr);
         } else {
-            Common(cpu, 4);
         }
     }
     
@@ -136,7 +126,6 @@ impl Instruction2 {
         if CF(cpu) {
             Self::Goto(cpu, addr);
         } else {
-            Common(cpu, 4);
         }
     }
 
@@ -144,32 +133,31 @@ impl Instruction2 {
         if !CF(cpu) {
             Self::Goto(cpu, addr);
         } else {
-            Common(cpu, 4);
         }
     }
 
     pub fn Gsub(cpu: &mut KoshkaCPU2, addr: u32) { // go to sub (same as x86-`call`)
-        cpu.push(cpu.pc);
+        cpu.push8(cpu.pc as u8);
         cpu.pc = addr;
     }
 
     pub fn Done(cpu: &mut KoshkaCPU2) {
-        cpu.pc = cpu.pop();
+        cpu.pc = cpu.pop8().into();
     }
 
     pub fn Cmp(cpu: &mut KoshkaCPU2, reg: u16, value: u16) {
-        if cpu.k[reg] != value {
+        if cpu.k[reg as usize] != value {
             SET_ZF(cpu);
         } else {
-            Common(3);
+            ()
         }
     }
 
     pub fn CmpRR(cpu: &mut KoshkaCPU2, reg1: u16, reg2: u16) {
-        if cpu.k[reg1] != cpu.k[reg2] {
+        if cpu.k[reg1 as usize] != cpu.k[reg2 as usize] {
             SET_ZF(cpu);
         } else {
-            Common(3);
+            ()
         }
     }
 

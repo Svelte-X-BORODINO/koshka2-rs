@@ -21,7 +21,7 @@ impl InvokeAction2 {
         table.insert(2, readc as InvokeFunction);
         table
     }
-
+    
     pub fn invoke(ia_table: &IAT, num: u8) {
         
     }

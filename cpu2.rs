@@ -1,6 +1,6 @@
 use std::process::exit;
 use std::fmt::{self, format};
-use crate::{video2::VideoController2, paging::Page, ia2::InvokeAction2};
+use crate::{video2::VideoController2, paging::Page, asm::asm2::KRSAssembler2};
 pub const AX: usize = 0;
 pub const BX: usize = 1;
 pub const CX: usize = 2;
@@ -10,7 +10,7 @@ pub const CTL1: usize = 12; // почти CR4
 pub struct KoshkaCPU2 {
     pub k: [u16; 12],
     pub kadv: *mut u32, 
-    pub memory: [u8; 256*1024],
+    pub memory: Box<[u8; 256*1024]>,
     pub pc: u32,
     pub sp: u32,
     pub kflags: u8,
@@ -22,8 +22,8 @@ impl KoshkaCPU2 {
         Self {
             k: [0; 12],
             kadv: std::ptr::null::<()>() as *mut u32,
-            memory: [0; 256*1024],
-            pc: 0,
+            memory: Box::new([0; 256*1024]),
+            pc: 0x2000,
             sp: 0xFFFE,
             kflags: 0b00000000,
             //*       CNZ--BI-
@@ -39,17 +39,17 @@ impl KoshkaCPU2 {
     // someone: where is ALU functions?
     // me: Ziglang stole them
     
-    pub fn write(&mut self, addr: u32, data: u8) {
+    pub fn write8(&mut self, addr: u32, data: u8) {
         self.memory[addr as usize] = data;
     }
 
-    pub fn read(&self, addr: u16) -> u8 {
+    pub fn read8(&self, addr: u32) -> u8 {
         self.memory[addr as usize]
     }
 
     pub fn push8(&mut self, data: u8) {
-        Self::write(self, self.sp.try_into().unwrap(), data);
         self.sp -= 1;
+        Self::write8(self, self.sp.try_into().unwrap(), data);
     }
 
     pub fn push16(&mut self, data: u16) {
