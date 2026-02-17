@@ -1,6 +1,7 @@
 use crate::cpu2::KoshkaCPU2;
-use crate::debug::KoshkaDB;
+// use crate::debug::KoshkaDB;
 use crate::cpu2::{AX, BX, CX, DX};
+use crate::video2::VideoController2;
 fn Common(cpu: &mut KoshkaCPU2, n: u32) -> u32 {
     cpu.pc = cpu.pc.wrapping_add(n);
     n
@@ -193,10 +194,10 @@ impl Instruction2 {
     }
     
     // * happy new 2026!
-    pub fn Stop(cpu: &mut KoshkaCPU2) {
-        VideoController2::dispd(&format!("Trapped at PC:{}", cpu.pc));
-        KoshkaDB::shell();
-    }
+    //pub fn Stop(cpu: &mut KoshkaCPU2) {
+    //    VideoController2::dispd(&format!("Trapped at PC:{}", cpu.pc).as_bytes());
+    //    KoshkaDB::shell();
+    //}
 
     pub fn Hlt() -> ! {
         loop {}

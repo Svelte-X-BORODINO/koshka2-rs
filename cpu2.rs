@@ -6,15 +6,18 @@ pub const BX: usize = 1;
 pub const CX: usize = 2;
 pub const DX: usize = 3;
 pub const CTL0: usize = 11; // почти CRO
-pub const CTL1: usize = 12; // почти CR4
+pub const CTL1: usize = 12; // почти CR3
+#[repr(align(64))]
 pub struct KoshkaCPU2 {
-    pub k: [u16; 12],
-    pub kadv: *mut u32, 
-    pub memory: Box<[u8; 256*1024]>,
-    pub pc: u32,
-    pub sp: u32,
-    pub kflags: u8,
-    pub current_page: u8,
+    pub k: [u16; 12], // 24
+    pub kadv: *mut u32,  // 8
+    pub memory: Box<[u8; 256*1024]>, // 8
+    pub pc: u32, // 4
+    pub sp: u32, // 4
+    pub kflags: u8, // 1
+    pub current_page: u8, // 1
+    // size is 50 bytes, but 50 is not power of 2
+    // so this struct is aligned to 64 bytes(64 bytes - CPU cash-line(thats good))
 }
 
 impl KoshkaCPU2 {
@@ -39,10 +42,12 @@ impl KoshkaCPU2 {
     // someone: where is ALU functions?
     // me: Ziglang stole them
     
+    #[inline]
     pub fn write8(&mut self, addr: u32, data: u8) {
         self.memory[addr as usize] = data;
     }
 
+    #[inline]
     pub fn read8(&self, addr: u32) -> u8 {
         self.memory[addr as usize]
     }
@@ -111,7 +116,4 @@ impl KoshkaCPU2 {
         println!(); 
     }
 
-    pub fn clear_mem(&mut self, limit: u32) {
-        self.memory[0..limit as usize].fill(0);
-    }
 }
