@@ -1,0 +1,29 @@
+#!/bin/bash
+
+RED="\e[0;31m"
+RED="\e[0;0m"
+
+log() {
+    echo -ne ">>> [${RED}ERROR${RESET}] $1"
+}
+
+build() {
+    cargo build || log "Build error caught."
+}
+
+run() {
+    cargo run || log "Run error caught."
+}
+
+if [[ $1 == "-run" ]]; then
+    run
+fi
+
+if [[ $1 == "-build" ]]; then
+    build
+fi
+
+if [[ $1 == "" ]]; then
+    echo "Usage: ./ball -(run|build)"
+    exit 1
+fi
