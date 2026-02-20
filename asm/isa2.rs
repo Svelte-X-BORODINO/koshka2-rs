@@ -1,7 +1,5 @@
 use crate::cpu2::KoshkaCPU2;
 // use crate::debug::KoshkaDB;
-use crate::cpu2::{AX, BX, CX, DX};
-use crate::video2::VideoController2;
 fn Common(cpu: &mut KoshkaCPU2, n: u32) -> u32 {
     cpu.pc = cpu.pc.wrapping_add(n);
     n

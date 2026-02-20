@@ -1,6 +1,13 @@
+/* 
+    ? этот даун:
+    ? что это за хехня? у меня сайт в котохом 1 стхока
+    ? еще я умнее тебя
+    ? почему? потому што йа делаю сайты а не пишу на хасте
+    ? он медленый патаму шта так сказал айти ютуб
+    ? а пайтон имба патаму шта он легкий 
+*/ 
 use std::process::exit;
-use std::fmt::{self, format};
-use crate::{video2::VideoController2, paging::Page, asm::asm2::KRSAssembler2};
+use crate::video2::VideoController2;
 pub const AX: usize = 0;
 pub const BX: usize = 1;
 pub const CX: usize = 2;
@@ -26,7 +33,7 @@ impl KoshkaCPU2 {
             k: [0; 12],
             kadv: std::ptr::null::<()>() as *mut u32,
             memory: Box::new([0; 256*1024]),
-            pc: 0x2000,
+            pc: 0x00002000,
             sp: 0xFFFE,
             kflags: 0b00000000,
             //*       CNZ--BI-

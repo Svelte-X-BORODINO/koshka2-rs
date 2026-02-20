@@ -1,6 +1,5 @@
 use crate::asm::isa2::Instruction2;
 use crate::cpu2::{KoshkaCPU2, AX, BX, CX, DX};
-use crate::video2::VideoController2;
 
 pub struct KRSAssembler2;
 
@@ -15,7 +14,7 @@ impl KRSAssembler2 {
                 Instruction2::None(cpu);
                 1
             },
-            // htl               
+            // hlt             
             0x01 => {
                 Instruction2::Hlt();
                 1
@@ -242,7 +241,7 @@ impl KRSAssembler2 {
                 let low = cpu.read8(cpu.pc + 1);
                 let high = cpu.read8(cpu.pc + 2);
                 let addr = (high << 8) | low;
-                Instruction2::Gnc(cpu, addr as u32);  // если это Goto if Not Carry
+                Instruction2::Gnc(cpu, addr as u32);  
                 3
             },
             // mov ax $imm16
@@ -251,6 +250,31 @@ impl KRSAssembler2 {
                 let high = cpu.read8(cpu.pc + 2);
                 let imm = (high << 8) | low;
                 Instruction2::Mov(cpu, AX as u16, imm as u16);
+                3
+            },
+            0xB1 => {
+                let low = cpu.read8(cpu.pc + 1);
+                let high = cpu.read8(cpu.pc + 2);
+                let imm = (high << 8) | low;
+                Instruction2::Mov(cpu, BX as u16, imm as u16);
+                3
+            },
+            0xB2 => {
+                let low = cpu.read8(cpu.pc + 1);
+                let high = cpu.read8(cpu.pc + 2);
+                let imm = (high << 8) | low;
+                Instruction2::Mov(cpu, CX as u16, imm as u16);
+                3
+            },
+            0xB3 => {
+                let low = cpu.read8(cpu.pc + 1);
+                let high = cpu.read8(cpu.pc + 2);
+                let imm = (high << 8) | low;
+                Instruction2::Mov(cpu, DX as u16, imm as u16);
+                3
+            },
+            0xBA => {
+                // TODO: inc 
                 3
             }
             _ => {

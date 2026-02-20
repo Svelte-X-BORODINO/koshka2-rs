@@ -1,5 +1,4 @@
 use std::io::Write;
-use std::arch::asm;
 
 pub struct VideoController2;
 
