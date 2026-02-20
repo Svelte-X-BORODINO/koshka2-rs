@@ -8,7 +8,7 @@ impl VideoController2 {
     }
     fn do_putc(c: u8) {
         print!("{}", c as char);
-        let _ = std::io::stdout().flush(); 
+        std::io::stdout().flush(); 
     }
 
     pub fn putc(c: u8) {
