@@ -8,8 +8,8 @@ mod state;
 
 use crate::{cpu2::KoshkaCPU2, paging::Page};
 
-
-fn main() {
+#[test]
+fn kadv() {
     let mut cpu: KoshkaCPU2 = KoshkaCPU2::new();
     cpu.write8(0x80, 'H' as u8);
     cpu.write8(0x81, 'e' as u8);
@@ -24,3 +24,19 @@ fn main() {
         cpu.kadv.set(ptr.wrapping_add(1));    
     }
 }
+
+#[test]
+fn showpage() {
+    let mut cpu: KoshkaCPU2 = KoshkaCPU2::new();
+    Page::set_page(&mut cpu, 16);
+    Page::show_page(&mut cpu, 0);
+}
+#[test]
+fn showstate() {
+    let mut cpu: KoshkaCPU2 = KoshkaCPU2::new();
+    cpu.state();
+}
+fn main() {}
+
+
+

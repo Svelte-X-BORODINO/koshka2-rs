@@ -1,10 +1,10 @@
 #!/bin/bash
 
 RED="\e[0;31m"
-RED="\e[0;0m"
+RESET="\e[0;0m"
 
 log() {
-    echo -ne ">>> [${RED}ERROR${RESET}] $1"
+    echo -ne ">>> [${RED}ERROR    ${RESET}] $1"
 }
 
 build() {
