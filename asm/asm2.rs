@@ -216,6 +216,7 @@ impl KRSAssembler2 {
                 Instruction2::Goto(cpu, addr as u32);
                 3
             },
+            // gz "somewhere"
             0xA1 => {
                 let low = cpu.read8(cpu.pc + 1);
                 let high = cpu.read8(cpu.pc + 2);
@@ -223,6 +224,7 @@ impl KRSAssembler2 {
                 Instruction2::Gz(cpu, addr as u32);
                 3
             },
+            // gnz "somewhere"
             0xA2 => {
                 let low = cpu.read8(cpu.pc + 1);
                 let high = cpu.read8(cpu.pc + 2);
@@ -230,6 +232,7 @@ impl KRSAssembler2 {
                 Instruction2::Gnz(cpu, addr as u32);
                 3
             },
+            // gc "somewhere"
             0xA3 => {
                 let low = cpu.read8(cpu.pc + 1);
                 let high = cpu.read8(cpu.pc + 2);
@@ -237,6 +240,7 @@ impl KRSAssembler2 {
                 Instruction2::Gc(cpu, addr as u32);
                 3
             },
+            // gnc "somewhere"
             0xA4 => {
                 let low = cpu.read8(cpu.pc + 1);
                 let high = cpu.read8(cpu.pc + 2);
@@ -274,7 +278,7 @@ impl KRSAssembler2 {
                 3
             },
             0xBA => {
-                // TODO: inc 
+                
                 3
             }
             _ => {

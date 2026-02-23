@@ -26,7 +26,7 @@ fn CLEAR_IF(cpu: &mut KoshkaCPU2) { cpu.kflags &= !2  }
 pub struct Instruction2;
 
 impl Instruction2 {
-    pub fn None(cpu: &mut KoshkaCPU2) {
+    pub fn None(_cpu: &mut KoshkaCPU2) {
     }
 
     pub fn Mov(cpu: &mut KoshkaCPU2, reg: u16, value: u16) {

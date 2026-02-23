@@ -1,20 +1,20 @@
-use std::process::exit;
-use crate::video2::VideoController2;
+use std::{process::exit, cell::Cell};
+use crate::{video2::VideoController2, state::GetState};
 pub const AX: usize = 0;
 pub const BX: usize = 1;
 pub const CX: usize = 2;
 pub const DX: usize = 3;
-pub const CTL0: usize = 11; // почти CRO
-pub const CTL1: usize = 12; // почти CR3
+pub const CTL0: usize = 10; // CR0-like register
+pub const CTL1: usize = 11; // CR3-like register
 #[repr(align(64))]
 pub struct KoshkaCPU2 {
-    pub k: [u16; 12], // 24
-    pub kadv: *mut u32,  // 8
-    pub memory: Box<[u8; 256*1024]>, // 8
-    pub pc: u32, // 4
-    pub sp: u32, // 4
-    pub kflags: u8, // 1
-    pub current_page: u8, // 1
+    pub k: [u16; 12], // 24 bytes
+    pub kadv: Cell<u32>,
+    pub memory: Box<[u8; 256*1024]>, // 8 bytes
+    pub pc: u32, // 4 bytes
+    pub sp: u32, // 4 bytes
+    pub kflags: u8, // 1 byte
+    pub current_page: u8, // 1 byte
     // size is 50 bytes, but 50 is not power of 2
     // so this struct is aligned to 64 bytes(64 bytes - CPU cash-line(thats good))
 }
@@ -23,7 +23,7 @@ impl KoshkaCPU2 {
     pub fn new() -> Self {
         Self {
             k: [0; 12],
-            kadv: std::ptr::null::<()>() as *mut u32,
+            kadv: Cell::new(0x00000000),
             memory: Box::new([0; 256*1024]),
             pc: 0x00002000,
             sp: 0xFFFE,
@@ -34,6 +34,10 @@ impl KoshkaCPU2 {
         }
     }
     
+    pub fn state(self) {
+        GetState::state(&self);
+    }
+
     pub fn panic_cpu(&self, res: &str) -> ! {
         VideoController2::disp(&format!("panic cpu#0 res={}", res).as_bytes());
         exit(1)
