@@ -85,6 +85,14 @@ impl Instruction2 {
         cpu.memory[dest.wrapping_add(1) as usize] = (data >> 8 as u8) as u8;
     }
 
+    pub fn IncR(cpu: &mut KoshkaCPU2, reg: usize) {
+        cpu.k[reg] = cpu.k[reg] + 1;
+    }
+
+    pub fn DecR(cpu: &mut KoshkaCPU2, reg: usize) {
+        cpu.k[reg] = cpu.k[reg] - 1;
+    }
+
     pub fn Push8(cpu: &mut KoshkaCPU2, value: u16) {
         cpu.push8(value as u8);
     }

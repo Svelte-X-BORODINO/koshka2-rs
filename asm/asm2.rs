@@ -256,6 +256,7 @@ impl KRSAssembler2 {
                 Instruction2::Mov(cpu, AX as u16, imm as u16);
                 3
             },
+            // mov bx $imm16
             0xB1 => {
                 let low = cpu.read8(cpu.pc + 1);
                 let high = cpu.read8(cpu.pc + 2);
@@ -263,6 +264,7 @@ impl KRSAssembler2 {
                 Instruction2::Mov(cpu, BX as u16, imm as u16);
                 3
             },
+            // mov cx $imm16
             0xB2 => {
                 let low = cpu.read8(cpu.pc + 1);
                 let high = cpu.read8(cpu.pc + 2);
@@ -270,6 +272,7 @@ impl KRSAssembler2 {
                 Instruction2::Mov(cpu, CX as u16, imm as u16);
                 3
             },
+            // mov dx $imm16
             0xB3 => {
                 let low = cpu.read8(cpu.pc + 1);
                 let high = cpu.read8(cpu.pc + 2);
@@ -277,12 +280,28 @@ impl KRSAssembler2 {
                 Instruction2::Mov(cpu, DX as u16, imm as u16);
                 3
             },
+            // inc ax
             0xBA => {
-                
-                3
-            }
+                Instruction2::IncR(cpu, AX);
+                1
+            },
+            // inc bx
+            0xBB => {
+                Instruction2::IncR(cpu, BX);
+                1
+            },
+            // inc cx
+            0xBC => {
+                Instruction2::IncR(cpu, CX);
+                1
+            },
+            // inc dx
+            0xBD => {
+                Instruction2::IncR(cpu, DX);
+                1
+            },
             _ => {
-                cpu.panic_cpu(&format!("Unknown opcode: 0x{:02X}", opcode));
+                cpu.panic_cpu(&format!("illegal_inst_${:02x}", opcode));
             }
         };
 
