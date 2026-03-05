@@ -6,7 +6,7 @@ mod ia2;
 mod asm;
 mod state;
 
-use crate::{cpu2::KoshkaCPU2, paging::Page};
+use crate::{cpu2::KoshkaCPU2, paging::Page, asm::asm2::KRSAssembler2};
 
 #[test]
 fn kadv() {
@@ -36,7 +36,18 @@ fn showstate() {
     let mut cpu: KoshkaCPU2 = KoshkaCPU2::new();
     cpu.state();
 }
-fn main() {}
+fn main() {
+    let mut cpu: KoshkaCPU2 = KoshkaCPU2::new();
+    // mov ax $42
+    Page::page_write8(&mut cpu, 0x2000, 0xB0);
+    Page::page_write8(&mut cpu, 0x2001, 0x42);
+    
+    KRSAssembler2::exec(&mut cpu);
+    println!("After: ");
+    cpu.state();
+    println!();
+}
+
 
 
 

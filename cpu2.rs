@@ -7,6 +7,7 @@ pub const DX: usize = 3;
 pub const CTL0: usize = 10; // CR0-like register
 pub const CTL1: usize = 11; // CR3-like register
 #[repr(align(64))]
+#[derive(Clone)]
 pub struct KoshkaCPU2 {
     pub k: [u16; 12], // 24 bytes
     pub kadv: Cell<u32>,

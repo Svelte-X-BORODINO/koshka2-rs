@@ -1,29 +1,63 @@
 #!/bin/bash
 
 RED="\e[0;31m"
-RESET="\e[0;0m"
+GREEN="\e[0;32m"
+RESET="\e[0m"
 
 log() {
-    echo -ne ">>> [${RED}ERROR    ${RESET}] $1"
+    echo -ne "${GREEN}log${RESET} | $1 "
+}
+
+error() {
+    echo -ne "${RED}error${RESET} | $1 "
+    exit 1
 }
 
 build() {
-    cargo build || log "Build error caught."
+    RUSTFLAGS="-Awarnings" cargo build || error "Build error caught."
+}
+
+test() {
+    cargo test || error "Test error caught."
 }
 
 run() {
-    cargo run || log "Run error caught."
+    if [[ -z ./target/debug/koshka2 ]]; then 
+        error "Couldn't find the Koshka II RS binary. Run \"./ball -build\" first."
+    fi
+    ./target/debug/koshka2
 }
 
-if [[ $1 == "-run" ]]; then
-    run
-fi
+for arg in "$@"; do
+    case $arg in
+        -build)
+            build
+            ;;
+        -test)
+            test
+            ;;
+        -run)
+            run
+            ;;
+        -all)
+            build && test && run
+            ;;
+        -h|--help)
+            echo "Usage: ./ball [OPTIONS]"
+            echo "Options:"
+            echo "  -build, --build    Build the project"
+            echo "  -test, --test      Run tests"
+            echo "  -run, --run        Run the emulator"
+            echo "  -all, --all        Do everything (build + test + run)"
+            echo "  -h, --help         Show this help"
+            exit 0
+            ;;
+        *)
+            error "Unknown option: $arg. Use -h for help."
+            ;;
+    esac
+done
 
-if [[ $1 == "-build" ]]; then
-    build
-fi
-
-if [[ $1 == "" ]]; then
-    echo "Usage: ./ball -(run|build)"
-    exit 1
+if [[ $# -eq 0 ]]; then
+    error "No arguments provided. Use -h for help."
 fi
