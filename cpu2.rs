@@ -1,9 +1,11 @@
+// COMMIT FROM PROGRAMMING CLASS
 use std::{process::exit, cell::Cell};
 use crate::{video2::VideoController2, state::GetState};
 pub const AX: usize = 0;
 pub const BX: usize = 1;
 pub const CX: usize = 2;
 pub const DX: usize = 3;
+pub const LP: usize = 4;
 pub const CTL0: usize = 10; // CR0-like register
 pub const CTL1: usize = 11; // CR3-like register
 #[repr(align(64))]
@@ -119,5 +121,6 @@ impl KoshkaCPU2 {
 
         println!(); 
     }
+
 
 }
