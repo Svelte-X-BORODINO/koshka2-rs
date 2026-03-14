@@ -11,8 +11,8 @@ puts:
     invoke 1
     goto .loop
 .done:
-		inc sp
-		done
+	inc sp
+	done
 
 
 main:
