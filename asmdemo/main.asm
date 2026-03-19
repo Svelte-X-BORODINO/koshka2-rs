@@ -10,6 +10,10 @@ puts:
     gz .done
     invoke 1
     goto .loop
+.done:
+	inc sp
+	done
+
 
 main:
     mov adv hw_msg
