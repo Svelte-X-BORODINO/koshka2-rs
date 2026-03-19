@@ -1,3 +1,5 @@
 target/
 FUTURE
 boot.xt
+test.rs
+test

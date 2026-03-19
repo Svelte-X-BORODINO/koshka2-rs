@@ -37,7 +37,7 @@ impl GetState for KoshkaCPU2 {
         println!();
         get_reg!(self, CX);
         get_reg!(self, DX);
-        println!("ADV=${:04X}  ", kadv);
+        println!("ADV=${:06X}  ", kadv);
         get_reg!(self, CTL0);
         get_reg!(self, CTL1);
     }

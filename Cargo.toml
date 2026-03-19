@@ -5,6 +5,7 @@ edition = "2024"
 
 [dependencies]
 half = "2.7.1"
+ux = "0.1.6"
 
 [[bin]]
 name = "koshka2"

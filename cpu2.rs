@@ -1,24 +1,25 @@
-// COMMIT FROM PROGRAMMING CLASS
 use std::{process::exit, cell::Cell};
 use crate::{video2::VideoController2, state::GetState};
 pub const AX: usize = 0;
 pub const BX: usize = 1;
 pub const CX: usize = 2;
 pub const DX: usize = 3;
+// COMMIT FROM PROGRAMMING CLASS
 pub const LP: usize = 4;
 pub const CTL0: usize = 10; // CR0-like register
 pub const CTL1: usize = 11; // CR3-like register
-#[repr(align(64))]
+#[repr(C, align(64))]
 #[derive(Clone)]
 pub struct KoshkaCPU2 {
     pub k: [u16; 12], // 24 bytes
-    pub kadv: Cell<u32>,
+    pub kadv: Cell<u32>, // 4 bytes
     pub memory: Box<[u8; 256*1024]>, // 8 bytes
     pub pc: u32, // 4 bytes
     pub sp: u32, // 4 bytes
     pub kflags: u8, // 1 byte
     pub current_page: u8, // 1 byte
-    // size is 50 bytes, but 50 is not power of 2
+    iatr: ux::u24, // 3 bytes
+    // size is 53 bytes, but 53 is not power of 2
     // so this struct is aligned to 64 bytes(64 bytes - CPU cash-line(thats good))
 }
 
@@ -32,13 +33,13 @@ impl KoshkaCPU2 {
             sp: 0xFFFE,
             kflags: 0b00000000,
             //*       CNZ--BI-
-            
+            iatr: ux::u24::new(0x000000),
             current_page: 0,
         }
     }
     
-    pub fn state(self) {
-        GetState::state(&self);
+    pub fn state(&self) {
+        GetState::state(self);
     }
 
     pub fn panic_cpu(&self, res: &str) -> ! {
@@ -64,15 +65,18 @@ impl KoshkaCPU2 {
     }
 
     pub fn push16(&mut self, data: u16) {
-        let low = (data << 8) as u8;
-        let high = data as u8;
-        Self::push8(self, low);
+        // Stack grows downward. Push high first so low ends up on top,
+        // making pop16 (low then high) work as expected.
+        let low = data as u8;
+        let high = (data >> 8) as u8;
         Self::push8(self, high);
+        Self::push8(self, low);
     }
 
     pub fn pop8(&mut self) -> u8 {
+        let v = self.memory[self.sp as usize];
         self.sp += 1;
-        self.memory[self.sp as usize]
+        v
     }
 
     pub fn pop16(&mut self) -> u16 {

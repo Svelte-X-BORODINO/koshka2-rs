@@ -5,53 +5,53 @@ GREEN="\e[0;32m"
 RESET="\e[0m"
 
 log() {
-    echo -ne "${GREEN}log${RESET} | $1 "
+    echo -ne "${GREEN}log${RESET} | $1\n"
 }
 
 error() {
-    echo -ne "${RED}error${RESET} | $1 "
+    echo -ne "${RED}error${RESET} | $1\n"
     exit 1
 }
 
 build() {
-    RUSTFLAGS="-Awarnings" cargo build || error "Build error caught."
+    RUSTFLAGS="-Awarnings" cargo build || error "build error caught."
 }
 
 test() {
-    cargo test || error "Test error caught."
+    cargo test || error "test error caught."
 }
 
 run() {
-    if [[ -z ./target/debug/koshka2 ]]; then 
-        error "Couldn't find the Koshka II RS binary. Run \"./ball -build\" first."
+    if [[ ! -f ./target/debug/koshka2 ]]; then 
+        error "couldn't find the Koshka II RS binary. run \"./ball -build\" first."
     fi
     ./target/debug/koshka2
 }
 
+clean() {
+    rm -rf target/
+}
+
+help() {
+    echo "Usage: ./ball [OPTIONS]"
+    echo "Options:"
+    echo "  -build             Build the project"
+    echo "  -test              Run tests"
+    echo "  -run               Run the emulator"
+    echo "  -all               Do everything (build + test + run)"
+    echo "  -clean             Remove the target/ directory"
+    echo "  -h, --help         Show this help"
+    exit 0
+}
+
 for arg in "$@"; do
     case $arg in
-        -build)
-            build
-            ;;
-        -test)
-            test
-            ;;
-        -run)
-            run
-            ;;
-        -all)
-            build && test && run
-            ;;
-        -h|--help)
-            echo "Usage: ./ball [OPTIONS]"
-            echo "Options:"
-            echo "  -build, --build    Build the project"
-            echo "  -test, --test      Run tests"
-            echo "  -run, --run        Run the emulator"
-            echo "  -all, --all        Do everything (build + test + run)"
-            echo "  -h, --help         Show this help"
-            exit 0
-            ;;
+        -build) build ;;
+        -test) test ;;
+        -run) run ;;
+        -all) test && build && run ;;
+        -h|-help) help ;;
+        -clean) clean ;;
         *)
             error "Unknown option: $arg. Use -h for help."
             ;;

@@ -6,46 +6,66 @@ mod ia2;
 mod asm;
 mod state;
 
+
 use crate::{cpu2::KoshkaCPU2, paging::Page, asm::asm2::KRSAssembler2};
 
-#[test]
-fn kadv() {
-    let mut cpu: KoshkaCPU2 = KoshkaCPU2::new();
-    cpu.write8(0x80, 'H' as u8);
-    cpu.write8(0x81, 'e' as u8);
-    cpu.write8(0x82, 'l' as u8);
-    cpu.write8(0x83, 'l' as u8);
-    cpu.write8(0x84, 'o' as u8);
-    cpu.write8(0x85, 0x00);
-    cpu.kadv.set(0x80);
-    while cpu.memory[cpu.kadv.get() as usize] != 0x00 {
-        let mut ptr = cpu.kadv.get();
-        print!("{}", cpu.memory[ptr as usize] as char);
-        cpu.kadv.set(ptr.wrapping_add(1));    
+mod tests {
+    use super::*;
+    #[test]
+    fn test_page_read8() {
+        let mut cpu: KoshkaCPU2 = KoshkaCPU2::new();
+        Page::set_page(&mut cpu, 2);
+        Page::page_write8(&mut cpu, 0x0000, 0xB0);
+        Page::page_write8(&mut cpu, 0x0001, 0x42);
+        Page::page_write8(&mut cpu, 0x0002, 0x00);
+        Page::page_write8(&mut cpu, 0x0003, 0xB9);
+        assert_eq!(Page::page_read8(&mut cpu, 0x0000), 0xB0);
+        assert_eq!(Page::page_read8(&mut cpu, 0x0001), 0x42);
+        assert_eq!(Page::page_read8(&mut cpu, 0x0002), 0x00);
+        assert_eq!(Page::page_read8(&mut cpu, 0x0003), 0xB9);
     }
-}
 
-#[test]
-fn showpage() {
-    let mut cpu: KoshkaCPU2 = KoshkaCPU2::new();
-    Page::set_page(&mut cpu, 16);
-    Page::show_page(&mut cpu, 0);
-}
-#[test]
-fn showstate() {
-    let mut cpu: KoshkaCPU2 = KoshkaCPU2::new();
-    cpu.state();
+    #[test]
+    fn test_page_write8() {
+        let mut cpu: KoshkaCPU2 = KoshkaCPU2::new();
+        Page::set_page(&mut cpu, 2);
+        Page::page_write8(&mut cpu, 0x0000, 0xB0);
+        Page::page_write8(&mut cpu, 0x0001, 0x42);
+        Page::page_write8(&mut cpu, 0x0002, 0x00);
+        Page::page_write8(&mut cpu, 0x0003, 0xB9);
+    }
+
+    #[test]
+    fn test_push8() {
+        let mut cpu: KoshkaCPU2 = KoshkaCPU2::new();
+        cpu.push8(0xB0);
+        cpu.push8(0x42);
+        cpu.push8(0x00);
+        cpu.push8(0xB9);
+        assert_eq!(cpu.pop8(), 0xB9);
+        assert_eq!(cpu.pop8(), 0x00);
+    }
 }
 fn main() {
     let mut cpu: KoshkaCPU2 = KoshkaCPU2::new();
-    // mov ax $42
-    Page::page_write8(&mut cpu, 0x2000, 0xB0);
-    Page::page_write8(&mut cpu, 0x2001, 0x42);
+    Page::set_page(&mut cpu, 2); // page_no = 2(0x2000), pc = 0x2000
+    Page::page_write8(&mut cpu, 0x0000, 0xB0);
+    Page::page_write8(&mut cpu, 0x0001, 0x42);
+    Page::page_write8(&mut cpu, 0x0002, 0x00);
+    Page::page_write8(&mut cpu, 0x0003, 0xB9);
+    Page::page_write8(&mut cpu, 0x0004, 0x56);
+    Page::page_write8(&mut cpu, 0x0005, 0x34);
+    Page::page_write8(&mut cpu, 0x0006, 0x12);
     
-    KRSAssembler2::exec(&mut cpu);
+    while cpu.memory[cpu.pc as usize] != 0 {
+        KRSAssembler2::exec(&mut cpu);
+    }
     println!("After: ");
     cpu.state();
     println!();
+
+    cpu.push8(42);
+    cpu.show_stack();
 }
 
 
