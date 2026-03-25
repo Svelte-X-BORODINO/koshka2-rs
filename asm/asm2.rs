@@ -176,7 +176,7 @@ impl KRSAssembler2 {
                 3
             },
             // add reg reg
-            0x2A => {
+            0x2F => {
                 let reg1 = cpu.read8(cpu.pc + 1) as usize;
                 let reg2 = cpu.read8(cpu.pc + 2) as usize;
                 Instruction2::AddRR(cpu, reg1 as u16, reg2 as u16);

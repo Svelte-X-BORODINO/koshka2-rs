@@ -60,8 +60,8 @@ impl KoshkaCPU2 {
     }
 
     pub fn push8(&mut self, data: u8) {
-        self.sp -= 1;
-        Self::write8(self, self.sp.try_into().unwrap(), data);
+        self.sp = self.sp.wrapping_sub(1);
+        self.write8(self.sp, data);
     }
 
     pub fn push16(&mut self, data: u16) {
@@ -74,9 +74,9 @@ impl KoshkaCPU2 {
     }
 
     pub fn pop8(&mut self) -> u8 {
-        let v = self.memory[self.sp as usize];
-        self.sp += 1;
-        v
+        let value = self.read8(self.sp);
+        self.sp = self.sp.wrapping_add(1);
+        value
     }
 
     pub fn pop16(&mut self) -> u16 {
@@ -86,19 +86,17 @@ impl KoshkaCPU2 {
     }
 
     pub fn show_stack(&self) {
-        let start = (self.sp + 1) as usize;
-        let end = self.sp as usize;
+        let mut sp = self.sp;
+        let mut i = 0;
         
-        if start > end {
-            return;
-        }
-
-        println!("Depth   Value");
-        println!("------  -------");
-
-        for (i, addr) in (start..=end).rev().enumerate() {
-            let value = self.memory[addr];
-            println!("{:04X}     ${:04X}", i, value);
+        println!("Depth   Address Value");
+        println!("------  ------- -----");
+        
+        while self.memory[sp as usize] != 0 {
+            let value = self.memory[sp as usize];
+            println!("{:04}    ${:04X}   ${:02X}", i, sp, value);
+            sp += 1;
+            i += 1;
         }
     }
 
