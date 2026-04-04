@@ -18,7 +18,7 @@ pub struct KoshkaCPU2 {
     pub sp: u32, // 4 bytes
     pub kflags: u8, // 1 byte
     pub current_page: u8, // 1 byte
-    iatr: ux::u24, // 3 bytes
+    pub iatr: ux::u24, // 3 bytes
     // size is 53 bytes, but 53 is not power of 2
     // so this struct is aligned to 64 bytes(64 bytes - CPU cash-line(thats good))
 }
@@ -65,8 +65,6 @@ impl KoshkaCPU2 {
     }
 
     pub fn push16(&mut self, data: u16) {
-        // Stack grows downward. Push high first so low ends up on top,
-        // making pop16 (low then high) work as expected.
         let low = data as u8;
         let high = (data >> 8) as u8;
         Self::push8(self, high);

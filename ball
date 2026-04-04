@@ -38,7 +38,7 @@ help() {
     echo "  -build             Build the project"
     echo "  -test              Run tests"
     echo "  -run               Run the emulator"
-    echo "  -all               Do everything (build + test + run)"
+    echo "  -full              Do everything (clean + build + test + run)"
     echo "  -clean             Remove the target/ directory"
     echo "  -h, --help         Show this help"
     exit 0
@@ -46,17 +46,19 @@ help() {
 
 for arg in "$@"; do
     case $arg in
-        -build) build ;;
-        -test) test ;;
-        -run) run ;;
-        -all) test && build && run ;;
-        -h|-help) help ;;
-        -clean) clean ;;
+        -build) build | tee ball.log ;;
+        -test) test | tee ball.log ;;
+        -run) run | tee ball.log;;
+        -full) clean && test && build && run | tee ball.log ;;
+        -h|-help) help  ;;
+        -clean) clean  ;;
         *)
             error "Unknown option: $arg. Use -h for help."
             ;;
     esac
 done
+
+
 
 if [[ $# -eq 0 ]]; then
     error "No arguments provided. Use -h for help."

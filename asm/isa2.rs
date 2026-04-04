@@ -5,23 +5,23 @@ fn Common(cpu: &mut KoshkaCPU2, n: u32) -> u32 {
     n
 }
 
-fn CF(cpu: &mut KoshkaCPU2) -> bool { if cpu.kflags & 128 != 0 {true} else {false} }
-fn NF(cpu: &mut KoshkaCPU2) -> bool { if cpu.kflags & 64 != 0 {true} else {false} }
-fn ZF(cpu: &mut KoshkaCPU2) -> bool { if cpu.kflags & 32 != 0 {true} else {false} }
-fn BF(cpu: &mut KoshkaCPU2) -> bool { if cpu.kflags & 4 != 0 {true} else {false} }
-fn IF(cpu: &mut KoshkaCPU2) -> bool { if cpu.kflags & 2 != 0 {true} else {false} }
+fn CF(cpu: &mut KoshkaCPU2) -> bool { if cpu.kflags & 0b10000000 != 0 {true} else {false} }
+fn NF(cpu: &mut KoshkaCPU2) -> bool { if cpu.kflags & 0b01000000 != 0 {true} else {false} }
+fn ZF(cpu: &mut KoshkaCPU2) -> bool { if cpu.kflags & 0b00100000 != 0 {true} else {false} }
+fn BF(cpu: &mut KoshkaCPU2) -> bool { if cpu.kflags & 0b00000100 != 0 {true} else {false} }
+fn IF(cpu: &mut KoshkaCPU2) -> bool { if cpu.kflags & 0b00000010 != 0 {true} else {false} }
 
-fn SET_CF(cpu: &mut KoshkaCPU2) { cpu.kflags |= 128 }
-fn SET_NF(cpu: &mut KoshkaCPU2) { cpu.kflags |= 64 }
-fn SET_ZF(cpu: &mut KoshkaCPU2) { cpu.kflags |= 32 }
-fn SET_BF(cpu: &mut KoshkaCPU2) { cpu.kflags |= 4 }
-fn SET_IF(cpu: &mut KoshkaCPU2) { cpu.kflags |= 2 }
+fn SET_CF(cpu: &mut KoshkaCPU2) { cpu.kflags |= 0b10000000 }
+fn SET_NF(cpu: &mut KoshkaCPU2) { cpu.kflags |= 0b01000000 }
+fn SET_ZF(cpu: &mut KoshkaCPU2) { cpu.kflags |= 0b00100000 }
+fn SET_BF(cpu: &mut KoshkaCPU2) { cpu.kflags |= 0b00000100 }
+fn SET_IF(cpu: &mut KoshkaCPU2) { cpu.kflags |= 0b00000010 }
 
-fn CLEAR_CF(cpu: &mut KoshkaCPU2) { cpu.kflags &= !128  }
-fn CLEAR_NF(cpu: &mut KoshkaCPU2) { cpu.kflags &= !64  }
-fn CLEAR_ZF(cpu: &mut KoshkaCPU2) { cpu.kflags &= !32  }
-fn CLEAR_BF(cpu: &mut KoshkaCPU2) { cpu.kflags &= !4  }
-fn CLEAR_IF(cpu: &mut KoshkaCPU2) { cpu.kflags &= !2  }
+fn CLEAR_CF(cpu: &mut KoshkaCPU2) { cpu.kflags &= !0b10000000  }
+fn CLEAR_NF(cpu: &mut KoshkaCPU2) { cpu.kflags &= !0b01000000  }
+fn CLEAR_ZF(cpu: &mut KoshkaCPU2) { cpu.kflags &= !0b00100000  }
+fn CLEAR_BF(cpu: &mut KoshkaCPU2) { cpu.kflags &= !0b00000100  }
+fn CLEAR_IF(cpu: &mut KoshkaCPU2) { cpu.kflags &= !0b00000010  }
 
 pub struct Instruction2;
 

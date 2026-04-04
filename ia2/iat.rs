@@ -1,10 +1,10 @@
 #[derive(Clone, Copy)]
-struct IATEntry {
+pub struct IATEntry {
     num: u8,
     handler: ux::u24,
 }
 
-struct IATable {
+pub struct IATable {
     entries: [Option<IATEntry>; 256],
 }
 
@@ -49,5 +49,7 @@ impl IATable {
                 });
             }
         }
+
+        //cpu.iatr = ux::u24::from(base & 0xFFFFFF);
     }
 }
