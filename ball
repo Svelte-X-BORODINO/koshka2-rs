@@ -14,11 +14,11 @@ error() {
 }
 
 build() {
-    RUSTFLAGS="-Awarnings" cargo build || error "build error caught."
+    RUSTFLAGS="-Awarnings -gdwarf-5" cargo build || error "build error caught."
 }
 
 test() {
-    cargo test || error "test error caught."
+    RUSTFLAGS="-Awarnings" cargo test || error "test error caught."
 }
 
 run() {
