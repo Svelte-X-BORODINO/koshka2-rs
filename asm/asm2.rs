@@ -1,8 +1,9 @@
 use crate::asm::isa2::Instruction2;
 use crate::cpu2::{KoshkaCPU2, AX, BX, CX, DX};
 use crate::video2::VideoController2;
-
 pub struct KRSAssembler2;
+
+
 
 impl KRSAssembler2 {
     pub fn exec(cpu: &mut KoshkaCPU2) {
@@ -19,7 +20,7 @@ impl KRSAssembler2 {
                 0
             },
             // div ax, imm16      
-            0x10 => {
+            0x03 => {
                 let low = cpu.read8(cpu.pc + 1);
                 let high = cpu.read8(cpu.pc + 2);
                 let imm = (high as u16).wrapping_shl(8).wrapping_add(low as u16);
@@ -27,13 +28,13 @@ impl KRSAssembler2 {
                 3  
             },
             // div ax, imm8       
-            0x11 => {
+            0x04 => {
                 let imm = cpu.read8(cpu.pc + 1);
                 Instruction2::Div(cpu, AX as u16, imm as u16);
                 2
             },
             // div bx imm16       
-            0x12 => {
+            0x05 => {
                 let low = cpu.read8(cpu.pc + 1);
                 let high = cpu.read8(cpu.pc + 2);
                 let imm = (high as u16).wrapping_shl(8).wrapping_add(low as u16);
@@ -41,13 +42,13 @@ impl KRSAssembler2 {
                 3
             },
             // div bx imm8        
-            0x13 => {
+            0x06 => {
                 let imm = cpu.read8(cpu.pc + 1);
                 Instruction2::Div(cpu, BX as u16, imm as u16);
                 2
             },
             // div cx imm16       
-            0x14 => {
+            0x07 => {
                 let low = cpu.read8(cpu.pc + 1);
                 let high = cpu.read8(cpu.pc + 2);
                 let imm = (high as u16).wrapping_shl(8).wrapping_add(low as u16);
@@ -55,13 +56,13 @@ impl KRSAssembler2 {
                 3
             },
             // div cx imm8        
-            0x15 => {
+            0x08 => {
                 let imm = cpu.read8(cpu.pc + 1);
                 Instruction2::Div(cpu, CX as u16, imm as u16);
                 2
             },
             // div dx imm16       
-            0x16 => {
+            0x09 => {
                 let low = cpu.read8(cpu.pc + 1);
                 let high = cpu.read8(cpu.pc + 2);
                 let imm = (high as u16).wrapping_shl(8).wrapping_add(low as u16);
@@ -69,20 +70,20 @@ impl KRSAssembler2 {
                 3
             },
             // div dx imm8        
-            0x17 => {
+            0x0A => {
                 let imm = cpu.read8(cpu.pc + 1);
                 Instruction2::Div(cpu, DX as u16, imm as u16);
                 2
             },
             // div reg reg        
-            0x1A => {
+            0x0B => {
                 let reg1 = cpu.read8(cpu.pc + 1) as usize;
                 let reg2 = cpu.read8(cpu.pc + 2) as usize;
                 Instruction2::DivRR(cpu, reg1 as u16, reg2 as u16);
                 3
             },
             // sub ax imm16       
-            0x20 => {
+            0x0C => {
                 let low = cpu.read8(cpu.pc + 1);
                 let high = cpu.read8(cpu.pc + 2);
                 let imm = (high as u16).wrapping_shl(8).wrapping_add(low as u16);
@@ -90,13 +91,13 @@ impl KRSAssembler2 {
                 3
             },
             // sub ax imm8        
-            0x21 => {
+            0x0D => {
                 let imm = cpu.read8(cpu.pc + 1);
                 Instruction2::Sub(cpu, AX as u16, imm as u16);
                 2
             },
             // sub bx imm16        
-            0x22 => {
+            0x0E => {
                 let low = cpu.read8(cpu.pc + 1);
                 let high = cpu.read8(cpu.pc + 2);
                 let imm = (high as u16).wrapping_shl(8).wrapping_add(low as u16);
@@ -104,12 +105,12 @@ impl KRSAssembler2 {
                 3
             },
             // sub bx imm8        
-            0x23 => {
+            0x0F => {
                 let imm = cpu.read8(cpu.pc + 1);
                 Instruction2::Sub(cpu, BX as u16, imm as u16);
                 2
             },
-            0x24 => {
+            0x10 => {
                 let low = cpu.read8(cpu.pc + 1);
                 let high = cpu.read8(cpu.pc + 2);
                 let imm = (high as u16).wrapping_shl(8).wrapping_add(low as u16);
@@ -117,13 +118,13 @@ impl KRSAssembler2 {
                 3
             },
             // sub cx imm8
-            0x25 => {
+            0x11 => {
                 let imm = cpu.read8(cpu.pc + 1);
                 Instruction2::Sub(cpu, CX as u16, imm as u16);
                 2
             },
             // sub dx imm16       
-            0x26 => {
+            0x12 => {
                 let low = cpu.read8(cpu.pc + 1);
                 let high = cpu.read8(cpu.pc + 2);
                 let imm = (high as u16).wrapping_shl(8).wrapping_add(low as u16);
@@ -131,20 +132,20 @@ impl KRSAssembler2 {
                 3
             },
             // sub dx imm8        
-            0x27 => {
+            0x13 => {
                 let imm = cpu.read8(cpu.pc + 1);
                 Instruction2::Sub(cpu, DX as u16, imm as u16);
                 2
             },
             // sub reg reg        
-            0x2A => {
+            0x14 => {
                 let reg1 = cpu.read8(cpu.pc + 1) as usize;
                 let reg2 = cpu.read8(cpu.pc + 2) as usize;
                 Instruction2::SubRR(cpu, reg1 as u16, reg2 as u16);
                 3
             },
             // add ax $imm16
-            0x2B => {
+            0x15 => {
                 let low = cpu.read8(cpu.pc + 1);
                 let high = cpu.read8(cpu.pc + 2);
                 let imm = (high as u16).wrapping_shl(8).wrapping_add(low as u16);
@@ -152,7 +153,7 @@ impl KRSAssembler2 {
                 3
             },
             // add bx $imm16
-            0x2C => {
+            0x16 => {
                 let low = cpu.read8(cpu.pc + 1);
                 let high = cpu.read8(cpu.pc + 2);
                 let imm = (high as u16).wrapping_shl(8).wrapping_add(low as u16);
@@ -160,7 +161,7 @@ impl KRSAssembler2 {
                 3
             },
             // add cx $imm16
-            0x2D => {
+            0x17 => {
                 let low = cpu.read8(cpu.pc + 1);
                 let high = cpu.read8(cpu.pc + 2);
                 let imm = (high as u16).wrapping_shl(8).wrapping_add(low as u16);
@@ -168,7 +169,7 @@ impl KRSAssembler2 {
                 3
             },
             // add dx $imm16
-            0x2E => {
+            0x18 => {
                 let low = cpu.read8(cpu.pc + 1);
                 let high = cpu.read8(cpu.pc + 2);
                 let imm = (high as u16).wrapping_shl(8).wrapping_add(low as u16);
@@ -176,14 +177,14 @@ impl KRSAssembler2 {
                 3
             },
             // add reg reg
-            0x2F => {
+            0x19 => {
                 let reg1 = cpu.read8(cpu.pc + 1) as usize;
                 let reg2 = cpu.read8(cpu.pc + 2) as usize;
                 Instruction2::AddRR(cpu, reg1 as u16, reg2 as u16);
                 3
             },
             // cmp ax $imm16       
-            0x3C => {
+            0x1A => {
                 let low = cpu.read8(cpu.pc + 1);
                 let high = cpu.read8(cpu.pc + 2);
                 let imm = (high as u16).wrapping_shl(8).wrapping_add(low as u16);
@@ -191,7 +192,7 @@ impl KRSAssembler2 {
                 3
             },
             // cmp bx $imm16
-            0x3D => {
+            0x1B => {
                 let low = cpu.read8(cpu.pc + 1);
                 let high = cpu.read8(cpu.pc + 2);
                 let imm = (high as u16).wrapping_shl(8).wrapping_add(low as u16);
@@ -199,7 +200,7 @@ impl KRSAssembler2 {
                 3
             },
             // cmp cx $imm16
-            0x3E => {
+            0x1C => {
                 let low = cpu.read8(cpu.pc + 1);
                 let high = cpu.read8(cpu.pc + 2);
                 let imm = (high as u16).wrapping_shl(8).wrapping_add(low as u16);
@@ -207,7 +208,7 @@ impl KRSAssembler2 {
                 3
             },
             // cmp dx $imm16
-            0x3F => {
+            0x1D => {
                 let low = cpu.read8(cpu.pc + 1);
                 let high = cpu.read8(cpu.pc + 2);
                 let imm = (high as u16).wrapping_shl(8).wrapping_add(low as u16);
@@ -215,7 +216,7 @@ impl KRSAssembler2 {
                 3
             },
             // push $imm16
-            0x40 => {
+            0x1E => {
                 let low = cpu.read8(cpu.pc + 1);
                 let high = cpu.read8(cpu.pc + 2);
                 let imm = (high as u16).wrapping_shl(8).wrapping_add(low as u16);
@@ -223,25 +224,25 @@ impl KRSAssembler2 {
                 3
             },
             // push $imm8
-            0x41 => {
+            0x1F => {
                 let imm = cpu.read8(cpu.pc + 1);
                 Instruction2::Push8(cpu, imm as u16);
                 2
             },
             // push reg 
-            0x42 => {
+            0x20 => {
                 let reg_no = cpu.read8(cpu.pc + 1);
                 Instruction2::PushR(cpu, reg_no as u16); 
                 2
             },
             // pop reg
-            0x43 => {
+            0x21 => {
                 let reg_no = cpu.read8(cpu.pc + 1);
                 Instruction2::Pop(cpu, reg_no as u16);
                 2
             },
             // goto "somewhere"
-            0xA0 => {
+            0x22 => {
                 let low = cpu.read8(cpu.pc + 1) as u16;
                 let high = cpu.read8(cpu.pc + 2) as u16;
                 let addr = high.wrapping_shl(8).wrapping_add(low);
@@ -249,7 +250,7 @@ impl KRSAssembler2 {
                 3
             },
             // gz "somewhere"
-            0xA1 => {
+            0x23 => {
                 let low = cpu.read8(cpu.pc + 1) as u16;
                 let high = cpu.read8(cpu.pc + 2) as u16;
                 let addr = high.wrapping_shl(8).wrapping_add(low);
@@ -257,7 +258,7 @@ impl KRSAssembler2 {
                 3
             },
             // gnz "somewhere"
-            0xA2 => {
+            0x24 => {
                 let low = cpu.read8(cpu.pc + 1) as u16;
                 let high = cpu.read8(cpu.pc + 2) as u16;
                 let addr = high.wrapping_shl(8).wrapping_add(low);
@@ -265,7 +266,7 @@ impl KRSAssembler2 {
                 3
             },
             // gc "somewhere"
-            0xA3 => {
+            0x25 => {
                 let low = cpu.read8(cpu.pc + 1) as u16;
                 let high = cpu.read8(cpu.pc + 2) as u16;
                 let addr = high.wrapping_shl(8).wrapping_add(low);
@@ -273,7 +274,7 @@ impl KRSAssembler2 {
                 3
             },
             // gnc "somewhere"
-            0xA4 => {
+            0x26 => {
                 let low = cpu.read8(cpu.pc + 1) as u16;
                 let high = cpu.read8(cpu.pc + 2) as u16;
                 let addr = high.wrapping_shl(8).wrapping_add(low);
@@ -281,42 +282,42 @@ impl KRSAssembler2 {
                 3
             },
             // mul ax $imm16
-            0xA5 => {
+            0x27 => {
                 let low = cpu.read8(cpu.pc + 1);
                 let high = cpu.read8(cpu.pc + 2);
                 let imm = (high as u16).wrapping_shl(8).wrapping_add(low as u16);
                 Instruction2::Mul(cpu, AX as u16, imm as u16);
                 3
             },
-            0xA6 => {
+            0x28 => {
                 let low = cpu.read8(cpu.pc + 1);
                 let high = cpu.read8(cpu.pc + 2);
                 let imm = (high as u16).wrapping_shl(8).wrapping_add(low as u16);
                 Instruction2::Mul(cpu, BX as u16, imm as u16);
                 3
             },
-            0xA7 => {
+            0x29 => {
                 let low = cpu.read8(cpu.pc + 1);
                 let high = cpu.read8(cpu.pc + 2);
                 let imm = (high as u16).wrapping_shl(8).wrapping_add(low as u16);
                 Instruction2::Mul(cpu, CX as u16, imm as u16);
                 3
             },
-            0xA8 => {
+            0x2A => {
                 let low = cpu.read8(cpu.pc + 1);
                 let high = cpu.read8(cpu.pc + 2);
                 let imm = (high as u16).wrapping_shl(8).wrapping_add(low as u16);
                 Instruction2::Mul(cpu, DX as u16, imm as u16);
                 3
             },
-            0xA9 => {
+            0x2B => {
                 let reg1 = cpu.read8(cpu.pc + 1) as usize;
                 let reg2 = cpu.read8(cpu.pc + 2) as usize;
                 Instruction2::MulRR(cpu, reg1 as u16, reg2 as u16);
                 3
             },
             // mov ax $imm16
-            0xB0 => {
+            0x2C => {
                 let low = cpu.read8(cpu.pc + 1);
                 let high = cpu.read8(cpu.pc + 2);
                 let imm = (high as u16).wrapping_shl(8).wrapping_add(low as u16);
@@ -324,7 +325,7 @@ impl KRSAssembler2 {
                 3
             },
             // mov bx $imm16
-            0xB1 => {
+            0x2D => {
                 let low = cpu.read8(cpu.pc + 1);
                 let high = cpu.read8(cpu.pc + 2);
                 let imm = (high as u16).wrapping_shl(8).wrapping_add(low as u16);
@@ -332,7 +333,7 @@ impl KRSAssembler2 {
                 3
             },
             // mov cx $imm16
-            0xB2 => {
+            0x2E => {
                 let low = cpu.read8(cpu.pc + 1);
                 let high = cpu.read8(cpu.pc + 2);
                 let imm = (high as u16).wrapping_shl(8).wrapping_add(low as u16);
@@ -340,7 +341,7 @@ impl KRSAssembler2 {
                 3
             },
             // mov dx $imm16
-            0xB3 => {
+            0x2F => {
                 let low = cpu.read8(cpu.pc + 1);
                 let high = cpu.read8(cpu.pc + 2);
                 let imm = (high as u16).wrapping_shl(8).wrapping_add(low as u16);
@@ -348,7 +349,7 @@ impl KRSAssembler2 {
                 3
             },
             // mov adv $imm24
-            0xB9 => {
+            0x30 => {
                 let b1 = cpu.read8(cpu.pc + 1) as u32;  
                 let b2 = cpu.read8(cpu.pc + 2) as u32;
                 let b3 = cpu.read8(cpu.pc + 3) as u32;              
@@ -360,31 +361,109 @@ impl KRSAssembler2 {
                 4
             }
             // inc ax
-            0xBA => {
+            0x31 => {
                 Instruction2::IncR(cpu, AX);
                 1
             },
             // inc bx
-            0xBB => {
+            0x32 => {
                 Instruction2::IncR(cpu, BX);
                 1
             },
             // inc cx
-            0xBC => {
+            0x33 => {
                 Instruction2::IncR(cpu, CX);
                 1
             },
             // inc dx
-            0xBD => {
+            0x34 => {
                 Instruction2::IncR(cpu, DX);
                 1
             },
             // xor ax $imm16
-            0xC0 => {
+            0x35 => {
                 let low = cpu.read8(cpu.pc + 1);
                 let high = cpu.read8(cpu.pc + 2);
                 let imm = (high as u16).wrapping_shl(8).wrapping_add(low as u16);
                 Instruction2::Xor(cpu, AX as u16, imm);
+                3
+            },
+            // and ax $imm16
+            0x36 => {
+                let low = cpu.read8(cpu.pc + 1);
+                let high = cpu.read8(cpu.pc + 2);
+                let imm = (high as u16).wrapping_shl(8).wrapping_add(low as u16);
+                Instruction2::And(cpu, AX as u16, imm);
+                3
+            },
+            // and bx $imm16
+            0x37 => {
+                let low = cpu.read8(cpu.pc + 1);
+                let high = cpu.read8(cpu.pc + 2);
+                let imm = (high as u16).wrapping_shl(8).wrapping_add(low as u16);
+                Instruction2::And(cpu, BX as u16, imm);
+                3
+            },
+            // and cx $imm16
+            0x38 => {
+                let low = cpu.read8(cpu.pc + 1);
+                let high = cpu.read8(cpu.pc + 2);
+                let imm = (high as u16).wrapping_shl(8).wrapping_add(low as u16);
+                Instruction2::And(cpu, CX as u16, imm);
+                3
+            },
+            // and dx $imm16
+            0x39 => {
+                let low = cpu.read8(cpu.pc + 1);
+                let high = cpu.read8(cpu.pc + 2);
+                let imm = (high as u16).wrapping_shl(8).wrapping_add(low as u16);
+                Instruction2::And(cpu, DX as u16, imm);
+                3
+            },
+            // and reg reg
+            0x3A => {
+                let reg1 = cpu.read8(cpu.pc + 1);
+                let reg2 = cpu.read8(cpu.pc + 2);
+                Instruction2::AndRR(cpu, reg1 as u16, reg2 as u16);
+                3
+            },
+            // and ax $imm16
+            0x3B => {
+                let low = cpu.read8(cpu.pc + 1);
+                let high = cpu.read8(cpu.pc + 2);
+                let imm = (high as u16).wrapping_shl(8).wrapping_add(low as u16);
+                Instruction2::Or(cpu, AX as u16, imm);
+                3
+            },
+            // and bx $imm16
+            0x3C => {
+                let low = cpu.read8(cpu.pc + 1);
+                let high = cpu.read8(cpu.pc + 2);
+                let imm = (high as u16).wrapping_shl(8).wrapping_add(low as u16);
+                Instruction2::Or(cpu, BX as u16, imm);
+                3
+            },
+            // and cx $imm16
+            0x3D => {
+                let low = cpu.read8(cpu.pc + 1);
+                let high = cpu.read8(cpu.pc + 2);
+                let imm = (high as u16).wrapping_shl(8).wrapping_add(low as u16);
+                Instruction2::Or(cpu, CX as u16, imm);
+                3
+            },
+            // and dx $imm16
+            0x3E => {
+                let low = cpu.read8(cpu.pc + 1);
+                let high = cpu.read8(cpu.pc + 2);
+                let imm = (high as u16).wrapping_shl(8).wrapping_add(low as u16);
+                Instruction2::Or(cpu, DX as u16, imm);
+                3
+            },
+            // and dx $imm16
+            0x3E => {
+                let reg1 = cpu.read8(cpu.pc + 1);
+                let reg2 = cpu.read8(cpu.pc + 2);
+                Instruction2::OrRR(cpu, reg1 as u16, reg2 as u16);
                 3
             },
             // xor bx $imm16
@@ -416,45 +495,6 @@ impl KRSAssembler2 {
                 let reg1 = cpu.read8(cpu.pc + 1);
                 let reg2 = cpu.read8(cpu.pc + 2);
                 Instruction2::XorRR(cpu, reg1 as u16, reg2 as u16);
-                3
-            },
-            // and ax $imm16
-            0xD0 => {
-                let low = cpu.read8(cpu.pc + 1);
-                let high = cpu.read8(cpu.pc + 2);
-                let imm = (high as u16).wrapping_shl(8).wrapping_add(low as u16);
-                Instruction2::And(cpu, AX as u16, imm);
-                3
-            },
-            // and bx $imm16
-            0xD1 => {
-                let low = cpu.read8(cpu.pc + 1);
-                let high = cpu.read8(cpu.pc + 2);
-                let imm = (high as u16).wrapping_shl(8).wrapping_add(low as u16);
-                Instruction2::And(cpu, BX as u16, imm);
-                3
-            },
-            // and cx $imm16
-            0xD2 => {
-                let low = cpu.read8(cpu.pc + 1);
-                let high = cpu.read8(cpu.pc + 2);
-                let imm = (high as u16).wrapping_shl(8).wrapping_add(low as u16);
-                Instruction2::And(cpu, CX as u16, imm);
-                3
-            },
-            // and dx $imm16
-            0xD3 => {
-                let low = cpu.read8(cpu.pc + 1);
-                let high = cpu.read8(cpu.pc + 2);
-                let imm = (high as u16).wrapping_shl(8).wrapping_add(low as u16);
-                Instruction2::And(cpu, DX as u16, imm);
-                3
-            },
-            // and reg reg
-            0xDD => {
-                let reg1 = cpu.read8(cpu.pc + 1);
-                let reg2 = cpu.read8(cpu.pc + 2);
-                Instruction2::AndRR(cpu, reg1 as u16, reg2 as u16);
                 3
             },
             _ => {

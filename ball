@@ -5,7 +5,11 @@ GREEN="\e[0;32m"
 RESET="\e[0m"
 
 log() {
-    echo -ne "${GREEN}log${RESET} | $1\n"
+    echo -ne "${GREEN}info${RESET} | $1\n"
+}
+
+build_on() {
+    log "system: $(grep PRETTY_NAME /etc/os-release | cut -d= -f2 | tr -d '"')"
 }
 
 error() {
@@ -14,7 +18,7 @@ error() {
 }
 
 build() {
-    RUSTFLAGS="-Awarnings -gdwarf-5" cargo build || error "build error caught."
+    RUSTFLAGS="-Awarnings -C debuginfo=2" cargo build || error "build error caught."
 }
 
 test() {
@@ -32,6 +36,10 @@ clean() {
     rm -rf target/
 }
 
+release() {
+    RUSTFLAGS="-Awarnings -gdwarf-5" cargo build --release || error "release error caught."
+}
+
 help() {
     echo "Usage: ./ball [OPTIONS]"
     echo "Options:"
@@ -44,14 +52,16 @@ help() {
     exit 0
 }
 
+build_on
 for arg in "$@"; do
     case $arg in
         -build) build | tee ball.log ;;
         -test) test | tee ball.log ;;
-        -run) run | tee ball.log;;
+        -run) run | tee ball.log ;;
         -full) clean && test && build && run | tee ball.log ;;
-        -h|-help) help  ;;
-        -clean) clean  ;;
+        -h|-help) help ;;
+        -clean) clean ;;
+        -release) release ;;
         *)
             error "Unknown option: $arg. Use -h for help."
             ;;

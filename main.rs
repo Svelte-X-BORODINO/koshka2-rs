@@ -6,8 +6,7 @@ mod ia2;
 mod asm;
 mod state;
 mod fpu;
-
-
+mod u24;
 use crate::{cpu2::KoshkaCPU2, paging::Page, asm::asm2::KRSAssembler2};
 
 #[path = "./ia2/iat.rs"]
@@ -61,21 +60,24 @@ mod tests {
 
     fn test_load_iat() {
         let mut cpu: KoshkaCPU2 = KoshkaCPU2::new();
+        let mut iat: IATable = IATable::new();
+        Page::set_page(&mut cpu, 2);
         Page::page_write8(&mut cpu, 0x0000, 0xB0);
         Page::page_write8(&mut cpu, 0x0001, 0x42);
         Page::page_write8(&mut cpu, 0x0002, 0x00);
         Page::page_write8(&mut cpu, 0x0003, 0xB9);
-        
+        IATable::load_iat(&mut iat, &mut cpu, 0x2000);
+        assert_eq!(cpu.iatr, crate::u24::u24::new(0x2000));
     }
 }
 fn main() {
     let mut cpu: KoshkaCPU2 = KoshkaCPU2::new();
     
     Page::set_page(&mut cpu, 2); // page_no = 2(0x2000), pc = 0x2000
-    Page::page_write8(&mut cpu, 0x0000, 0xB0);
-    Page::page_write8(&mut cpu, 0x0001, 0x42);
-    Page::page_write8(&mut cpu, 0x0002, 0x00);
-    Page::page_write8(&mut cpu, 0x0003, 0xB9);
+    Page::page_write8(&mut cpu, 0x0000, 0x2C);
+    Page::page_write8(&mut cpu, 0x0001, 0x34);
+    Page::page_write8(&mut cpu, 0x0002, 0x12);
+    Page::page_write8(&mut cpu, 0x0003, 0x30);
     Page::page_write8(&mut cpu, 0x0004, 0x56);
     Page::page_write8(&mut cpu, 0x0005, 0x34);
     Page::page_write8(&mut cpu, 0x0006, 0x12);
