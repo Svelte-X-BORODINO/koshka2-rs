@@ -17,6 +17,10 @@ error() {
     exit 1
 }
 
+docs() {
+    RUSTFLAGS="-Awarnings" cargo doc || error "docs error caught."
+}
+
 build() {
     RUSTFLAGS="-Awarnings -C debuginfo=2" cargo build || error "build error caught."
 }
@@ -45,6 +49,7 @@ help() {
     echo "Options:"
     echo "  -build             Build the project"
     echo "  -test              Run tests"
+    echo "  -docs              Assemble the docs"
     echo "  -run               Run the emulator"
     echo "  -full              Do everything (clean + build + test + run)"
     echo "  -clean             Remove the target/ directory"
@@ -57,6 +62,7 @@ for arg in "$@"; do
     case $arg in
         -build) build | tee ball.log ;;
         -test) test | tee ball.log ;;
+        -docs) docs | tee ball.log ;;
         -run) run | tee ball.log ;;
         -full) clean && test && build && run | tee ball.log ;;
         -h|-help) help ;;
