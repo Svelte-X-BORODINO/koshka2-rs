@@ -13,6 +13,7 @@
 //! IATable:
 //!     entries [Option<IATEntry>; 256]: entries list
 use crate::u24::u24;
+
 #[derive(Clone, Copy)]
 pub struct IATEntry {
     num: u8,
@@ -48,13 +49,15 @@ impl IATable {
             let idx = num as usize;
             let pos = base.wrapping_add((num as u32) * 4);
 
-            let read_num = cpu.read8(pos + 0);
-            let b1: u24 = u24::from(cpu.read8(pos + 1));
-            let b2: u24 = u24::from(cpu.read8(pos + 2));
-            let b3: u24 = u24::from(cpu.read8(pos + 3));
-            let handler: u24 = ((b3 << u24::from(16u8)) | (b2 << u24::from(8u8)) | b1) as u24;
+            let read_num = cpu.read8(pos);
+            let b1 = cpu.read8(pos + 1) as u32;
+            let b2 = cpu.read8(pos + 2) as u32;
+            let b3 = cpu.read8(pos + 3) as u32;
+            
+            let raw_handler = (b3 << 16) | (b2 << 8) | b1;
+            let handler = u24::new(raw_handler);
 
-            let is_empty = read_num == 0 && handler == u24::from(0u8);
+            let is_empty = read_num == 0 && handler == u24::new(0);
             if is_empty {
                 self.entries[idx] = None;
             } else {
@@ -65,7 +68,6 @@ impl IATable {
             }
         }
 
-        cpu.iatr = u24::from(base); 
-
+        cpu.iatr = u24::new(base);
     }
 }

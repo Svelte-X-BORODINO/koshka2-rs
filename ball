@@ -22,7 +22,7 @@ docs() {
 }
 
 build() {
-    RUSTFLAGS="-Awarnings -C debuginfo=2" cargo build || error "build error caught."
+    RUSTFLAGS="-Awarnings -C debuginfo=2" cargo build || error "build error caught." 
 }
 
 test() {

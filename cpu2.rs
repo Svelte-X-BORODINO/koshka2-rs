@@ -23,7 +23,7 @@ pub const CTL0: usize = 10; // CR0-like register
 pub const CTL1: usize = 11; // CR3-like register
 #[repr(C, align(64))]
 #[derive(Clone)]
-/// The CPU Structure.
+/// # The CPU Structure.
 pub struct KoshkaCPU2 {
     /// 12 Registers
     pub k: [u16; 12], // 24 bytes
