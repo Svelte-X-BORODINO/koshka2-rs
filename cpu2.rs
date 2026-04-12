@@ -12,7 +12,7 @@
 
 #![no_std]
 use core::{cell::Cell, arch::asm};
-use crate::{video2::VideoController2, state::GetState, u24::u24};
+use crate::{video2::VideoKontroller2, state::GetState, u24::u24};
 pub const AX: usize = 0;
 pub const BX: usize = 1;
 pub const CX: usize = 2;
@@ -23,7 +23,8 @@ pub const CTL0: usize = 10; // CR0-like register
 pub const CTL1: usize = 11; // CR3-like register
 #[repr(C, align(64))]
 #[derive(Clone)]
-/// # The CPU Structure.
+
+/// ### The CPU Structure.
 pub struct KoshkaCPU2 {
     /// 12 Registers
     pub k: [u16; 12], // 24 bytes
@@ -31,7 +32,7 @@ pub struct KoshkaCPU2 {
     pub kadv: Cell<u32>, // 4 bytes
     /// Flash Memory
     pub memory: Box<[u8; 256*1024]>, // 8 bytes
-    /// Program Counter 
+    /// Program Counter (or Program Position)
     pub pc: u32, // 4 bytes
     /// Stack Pointer
     pub sp: u32, // 4 bytes
@@ -43,6 +44,7 @@ pub struct KoshkaCPU2 {
     pub iatr: crate::u24::u24, // 3 bytes
     // size is 53 bytes, but 53 is not power of 2
     // so this struct is aligned to 64 bytes(64 bytes - CPU cash-line(thats good))
+    vc: VideoKontroller2,
 }
 
 fn exit(code: i32) -> ! {
@@ -68,6 +70,7 @@ impl KoshkaCPU2 {
             //*       CNZ--BI-
             iatr: u24::new(0x000000),
             current_page: 0,
+            vc: VideoKontroller2::new(),
         }
     }
     /// Get the state of CPU.
@@ -76,8 +79,8 @@ impl KoshkaCPU2 {
     }
 
     /// Panic with exit.
-    pub fn panic_cpu(&self, res: &str) -> ! {
-        VideoController2::disp(&format!("panic cpu#0 res={}", res).as_bytes());
+    pub fn panic_cpu(&mut self, res: &str) -> ! {
+        VideoKontroller2::disp(&mut self.vc, &format!("panic cpu#0 res={}", res).as_bytes());
         exit(1)
     }
     // someone: where is ALU functions?

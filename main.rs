@@ -7,11 +7,10 @@ mod asm;
 mod state;
 mod fpu;
 mod u24;
-use crate::{cpu2::KoshkaCPU2, paging::Page, asm::asm2::KRSAssembler2};
+use crate::{asm::asm2::KRSAssembler2, cpu2::KoshkaCPU2, paging::Page, video2::VideoKontroller2};
 
-#[path = "./ia2/iat.rs"]
 use ia2::iat::IATable;
-
+#[cfg(test)]
 mod tests {
     use super::*;
     #[test]
@@ -72,7 +71,7 @@ mod tests {
 }
 fn main() {
     let mut cpu: KoshkaCPU2 = KoshkaCPU2::new();
-    
+    let mut vc: VideoKontroller2 = VideoKontroller2::new();
     Page::set_page(&mut cpu, 2); // page_no = 2(0x2000), pc = 0x2000
     Page::page_write8(&mut cpu, 0x0000, 0x2C);
     Page::page_write8(&mut cpu, 0x0001, 0x34);
@@ -83,7 +82,7 @@ fn main() {
     Page::page_write8(&mut cpu, 0x0006, 0x12);
     
     while cpu.memory[cpu.pc as usize] != 0 {
-        KRSAssembler2::exec(&mut cpu);
+        KRSAssembler2::exec(&mut cpu, &mut vc);
     }
     println!("After: ");
     cpu.state();
@@ -95,6 +94,8 @@ fn main() {
     cpu.push8(69);
     cpu.push8(52);
     cpu.show_stack();
+    VideoKontroller2::disp(&mut vc, b"ok so\n");
+    VideoKontroller2::disp(&mut vc, b"it works\n");
 }
 
 

@@ -1,12 +1,12 @@
 use crate::asm::isa2::Instruction2;
 use crate::cpu2::{KoshkaCPU2, AX, BX, CX, DX};
-use crate::video2::VideoController2;
+use crate::video2::VideoKontroller2;
 pub struct KRSAssembler2;
 
 
 
 impl KRSAssembler2 {
-    pub fn exec(cpu: &mut KoshkaCPU2) {
+    pub fn exec(cpu: &mut KoshkaCPU2, vc: &mut VideoKontroller2) {
         let opcode = cpu.memory[cpu.pc as usize];
 
         let inst_size = match opcode {
@@ -355,9 +355,9 @@ impl KRSAssembler2 {
                 let b3 = cpu.read8(cpu.pc + 3) as u32;              
                 let imm24 = (b3 << 16) | (b2 << 8) | b1;
 
-                VideoController2::dispd(&format!("kadv.set({})\n", imm24).as_bytes());
+                VideoKontroller2::dispd(vc, &format!("kadv.set({})\n", imm24));
                 cpu.kadv.set(imm24);
-                VideoController2::dispd(&format!("kadv: {:06X}\n", cpu.kadv.get()).as_bytes());
+                VideoKontroller2::dispd(vc, &format!("kadv: {:06X}\n", cpu.kadv.get()));
                 4
             }
             // inc ax
@@ -459,8 +459,8 @@ impl KRSAssembler2 {
                 Instruction2::Or(cpu, DX as u16, imm);
                 3
             },
-            // and dx $imm16
-            0x3E => {
+            // and reg reg
+            0x3F => {
                 let reg1 = cpu.read8(cpu.pc + 1);
                 let reg2 = cpu.read8(cpu.pc + 2);
                 Instruction2::OrRR(cpu, reg1 as u16, reg2 as u16);
