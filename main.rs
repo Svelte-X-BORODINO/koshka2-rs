@@ -70,19 +70,18 @@ mod tests {
     }
 }
 fn main() {
-    let mut cpu: KoshkaCPU2 = KoshkaCPU2::new();
-    let mut vc: VideoKontroller2 = VideoKontroller2::new();
+    let mut cpu: KoshkaCPU2 = KoshkaCPU2::new(); 
+    let mut exec_vc: VideoKontroller2 = VideoKontroller2::new(); 
     Page::set_page(&mut cpu, 2); // page_no = 2(0x2000), pc = 0x2000
     Page::page_write8(&mut cpu, 0x0000, 0x2C);
-    Page::page_write8(&mut cpu, 0x0001, 0x34);
-    Page::page_write8(&mut cpu, 0x0002, 0x12);
-    Page::page_write8(&mut cpu, 0x0003, 0x30);
-    Page::page_write8(&mut cpu, 0x0004, 0x56);
-    Page::page_write8(&mut cpu, 0x0005, 0x34);
-    Page::page_write8(&mut cpu, 0x0006, 0x12);
-    
+    Page::page_write8(&mut cpu, 0x0001, 0x36);
+    Page::page_write8(&mut cpu, 0x0002, 0xFF);
+    Page::page_write8(&mut cpu, 0x0003, 0x0C);
+    Page::page_write8(&mut cpu, 0x0004, 0x09);
+    Page::page_write8(&mut cpu, 0x0005, 0x47);
+    Page::show_page(&mut cpu, 0x0000);
     while cpu.memory[cpu.pc as usize] != 0 {
-        KRSAssembler2::exec(&mut cpu, &mut vc);
+        KRSAssembler2::exec(&mut cpu, &mut exec_vc);
     }
     println!("After: ");
     cpu.state();
@@ -94,10 +93,6 @@ fn main() {
     cpu.push8(69);
     cpu.push8(52);
     cpu.show_stack();
-    VideoKontroller2::disp(&mut vc, b"ok so\n");
-    VideoKontroller2::disp(&mut vc, b"it works\n");
+    VideoKontroller2::disp(&mut cpu.vc, b"ok so\n");
+    VideoKontroller2::disp(&mut cpu.vc, b"it works\n");
 }
-
-
-
-

@@ -17,7 +17,7 @@ impl Page {
     /// x86 physical address = segment << 4 + offset,
     /// but in KRSII: physical address = current_page << 12 + ofs
     fn paddr(cpu: &mut KoshkaCPU2, ofs: u32) -> u32 {
-        (cpu.current_page.wrapping_shl(12).wrapping_add(ofs as u8)) as u32
+        ((cpu.current_page as u32) << 12) + ofs
     }
 
     /// Show 4096 bytes of page.

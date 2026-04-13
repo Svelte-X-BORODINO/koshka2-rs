@@ -1,6 +1,6 @@
 //! The Heart Of Koshka II RS CPU
 //! 
-//! This module is implements all CPU methods... WITHOUT STANDARD LIBRARY.
+//! This module is implements all CPU methods... WITHOUT STANDARD LIBRARY( but with core :D ).
 //! 
 //! # Example:
 //! ```no_run
@@ -44,7 +44,8 @@ pub struct KoshkaCPU2 {
     pub iatr: crate::u24::u24, // 3 bytes
     // size is 53 bytes, but 53 is not power of 2
     // so this struct is aligned to 64 bytes(64 bytes - CPU cash-line(thats good))
-    vc: VideoKontroller2,
+    /// UART device
+    pub vc: VideoKontroller2,
 }
 
 fn exit(code: i32) -> ! {
