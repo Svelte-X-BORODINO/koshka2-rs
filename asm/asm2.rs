@@ -289,6 +289,7 @@ impl KRSAssembler2 {
                 Instruction2::Mul(cpu, AX as u16, imm as u16);
                 3
             },
+            // mul bx $imm16
             0x28 => {
                 let low = cpu.read8(cpu.pc + 1);
                 let high = cpu.read8(cpu.pc + 2);
@@ -296,6 +297,7 @@ impl KRSAssembler2 {
                 Instruction2::Mul(cpu, BX as u16, imm as u16);
                 3
             },
+            // mul cx $imm16
             0x29 => {
                 let low = cpu.read8(cpu.pc + 1);
                 let high = cpu.read8(cpu.pc + 2);
@@ -303,6 +305,7 @@ impl KRSAssembler2 {
                 Instruction2::Mul(cpu, CX as u16, imm as u16);
                 3
             },
+            // mul dx $imm16
             0x2A => {
                 let low = cpu.read8(cpu.pc + 1);
                 let high = cpu.read8(cpu.pc + 2);
@@ -310,6 +313,7 @@ impl KRSAssembler2 {
                 Instruction2::Mul(cpu, DX as u16, imm as u16);
                 3
             },
+            // mul reg reg
             0x2B => {
                 let reg1 = cpu.read8(cpu.pc + 1) as usize;
                 let reg2 = cpu.read8(cpu.pc + 2) as usize;
@@ -354,7 +358,6 @@ impl KRSAssembler2 {
                 let b2 = cpu.read8(cpu.pc + 2) as u32;
                 let b3 = cpu.read8(cpu.pc + 3) as u32;              
                 let imm24 = (b3 << 16) | (b2 << 8) | b1;
-
                 VideoKontroller2::dispd(vc, &format!("kadv.set({})\n", imm24));
                 cpu.kadv.set(imm24);
                 VideoKontroller2::dispd(vc, &format!("kadv: {:06X}\n", cpu.kadv.get()));
@@ -427,7 +430,7 @@ impl KRSAssembler2 {
                 Instruction2::AndRR(cpu, reg1 as u16, reg2 as u16);
                 3
             },
-            // and ax $imm16
+            // or ax $imm16
             0x3B => {
                 let low = cpu.read8(cpu.pc + 1);
                 let high = cpu.read8(cpu.pc + 2);
@@ -435,7 +438,7 @@ impl KRSAssembler2 {
                 Instruction2::Or(cpu, AX as u16, imm);
                 3
             },
-            // and bx $imm16
+            // or bx $imm16
             0x3C => {
                 let low = cpu.read8(cpu.pc + 1);
                 let high = cpu.read8(cpu.pc + 2);
@@ -443,7 +446,7 @@ impl KRSAssembler2 {
                 Instruction2::Or(cpu, BX as u16, imm);
                 3
             },
-            // and cx $imm16
+            // or cx $imm16
             0x3D => {
                 let low = cpu.read8(cpu.pc + 1);
                 let high = cpu.read8(cpu.pc + 2);
@@ -451,7 +454,7 @@ impl KRSAssembler2 {
                 Instruction2::Or(cpu, CX as u16, imm);
                 3
             },
-            // and dx $imm16
+            // or dx $imm16
             0x3E => {
                 let low = cpu.read8(cpu.pc + 1);
                 let high = cpu.read8(cpu.pc + 2);
@@ -459,13 +462,39 @@ impl KRSAssembler2 {
                 Instruction2::Or(cpu, DX as u16, imm);
                 3
             },
-            // and reg reg
+            // or reg reg
             0x3F => {
                 let reg1 = cpu.read8(cpu.pc + 1);
                 let reg2 = cpu.read8(cpu.pc + 2);
                 Instruction2::OrRR(cpu, reg1 as u16, reg2 as u16);
                 3
             },
+            // not ax
+            0x40 => {
+                Instruction2::Not(cpu, 0);
+                3
+            }
+            // not bx
+            0x41 => {
+                Instruction2::Not(cpu, 1);
+                3
+            },
+            // not bx
+            0x42 => {
+                Instruction2::Not(cpu, 2);
+                3
+            },
+            // not cx
+            0x43 => {
+                Instruction2::Not(cpu, 3);
+                3
+            },
+            // not dx
+            0x44 => {
+                Instruction2::Not(cpu, 4);
+                3
+            },
+            // ...
             // xor bx $imm16
             0xC1 => {
                 let low = cpu.read8(cpu.pc + 1);

@@ -43,7 +43,6 @@ impl Instruction2 {
 
     pub fn AddRR(cpu: &mut KoshkaCPU2, reg1: u16, reg2: u16) {
         cpu.k[reg1 as usize] = cpu.k[reg1 as usize].wrapping_add(cpu.k[reg2 as usize]);
-
     }
 
     pub fn Sub(cpu: &mut KoshkaCPU2, reg: u16, value: u16) {
@@ -64,6 +63,16 @@ impl Instruction2 {
 
     pub fn Div(cpu: &mut KoshkaCPU2, reg: u16, value: u16) {
         if value == 0 {
+            println!("u cant divide by zero, bro!");
+            println!("but...");
+            println!("you can.");
+            println!("let me explain");
+            println!("10 / 0.1 = 100");
+            println!("10 / 0.01 = 1000");
+            println!("0 = ~0.00000...1 (why? i forgot why, but its truth, really)");
+            println!("so: something / 0 = something / ~0.00000...1 = something * 100000... = infinity.");
+            println!("but i need to invoke the panic, becuz of IEEE 754 or the logic");
+            println!("see ya!");
             cpu.panic_cpu("div_by_zero");
         }
         cpu.k[reg as usize] = cpu.k[reg as usize].wrapping_div(value);
@@ -71,6 +80,16 @@ impl Instruction2 {
 
     pub fn DivRR(cpu: &mut KoshkaCPU2, reg1: u16, reg2: u16) {
         if cpu.k[reg2 as usize] == 0 {
+            println!("u cant divide by zero, bro!");
+            println!("but...");
+            println!("you can.");
+            println!("let me explain");
+            println!("10 / 0.1 = 100");
+            println!("10 / 0.01 = 1000");
+            println!("0 = ~0.00000...1 (why? i forgot why, but its truth, really)");
+            println!("so: something / 0 = something / ~0.00000...1 = something * 100000... = infinity.");
+            println!("but i need to invoke the panic, becuz of IEEE 754 or the logic");
+            println!("see ya!");
             cpu.panic_cpu("div_by_zero");
         }
         cpu.k[reg1 as usize] = cpu.k[reg1 as usize].wrapping_div(cpu.k[reg2 as usize]);
@@ -107,7 +126,6 @@ impl Instruction2 {
 
     pub fn Pop(cpu: &mut KoshkaCPU2, reg: u16) {
         cpu.k[reg as usize] = cpu.pop8().into();
-
     }
 
     pub fn Goto(cpu: &mut KoshkaCPU2, addr: u32) {
@@ -151,7 +169,6 @@ impl Instruction2 {
     pub fn Done(cpu: &mut KoshkaCPU2) {
         cpu.pc = cpu.pop8().into();
     }
-
     pub fn Cmp(cpu: &mut KoshkaCPU2, reg: u16, value: u16) {
         if cpu.k[reg as usize] != value {
             SET_ZF(cpu);
@@ -199,6 +216,10 @@ impl Instruction2 {
         Common(cpu, 2);
     }
     
+    pub fn Not(cpu: &mut KoshkaCPU2, reg: u16) {
+        cpu.k[reg as usize] = !cpu.k[reg as usize];
+    }   
+
     // * happy new 2026!
     //pub fn Stop(cpu: &mut KoshkaCPU2) {
     //    VideoController2::dispd(&format!("Trapped at PC:{}", cpu.pc).as_bytes());

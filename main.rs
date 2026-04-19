@@ -61,10 +61,10 @@ mod tests {
         let mut cpu: KoshkaCPU2 = KoshkaCPU2::new();
         let mut iat: IATable = IATable::new();
         Page::set_page(&mut cpu, 2);
-        Page::page_write8(&mut cpu, 0x0000, 0xB0);
-        Page::page_write8(&mut cpu, 0x0001, 0x42);
+        Page::page_write8(&mut cpu, 0x0000, 0xB0); // old mov ax
+        Page::page_write8(&mut cpu, 0x0001, 0x42); 
         Page::page_write8(&mut cpu, 0x0002, 0x00);
-        Page::page_write8(&mut cpu, 0x0003, 0xB9);
+        Page::page_write8(&mut cpu, 0x0003, 0xB9); // old mov adv
         IATable::load_iat(&mut iat, &mut cpu, 0x2000);
         assert_eq!(cpu.iatr, crate::u24::u24::new(0x2000));
     }
@@ -74,12 +74,10 @@ fn main() {
     let mut exec_vc: VideoKontroller2 = VideoKontroller2::new(); 
     Page::set_page(&mut cpu, 2); // page_no = 2(0x2000), pc = 0x2000
     Page::page_write8(&mut cpu, 0x0000, 0x2C);
-    Page::page_write8(&mut cpu, 0x0001, 0x36);
-    Page::page_write8(&mut cpu, 0x0002, 0xFF);
-    Page::page_write8(&mut cpu, 0x0003, 0x0C);
-    Page::page_write8(&mut cpu, 0x0004, 0x09);
-    Page::page_write8(&mut cpu, 0x0005, 0x47);
-    Page::show_page(&mut cpu, 0x0000);
+    Page::page_write8(&mut cpu, 0x0001, 0x14);
+    Page::page_write8(&mut cpu, 0x0002, 0x00);
+    Page::page_write8(&mut cpu, 0x0003, 0x03);
+    Page::page_write8(&mut cpu, 0x0004, 0x00);
     while cpu.memory[cpu.pc as usize] != 0 {
         KRSAssembler2::exec(&mut cpu, &mut exec_vc);
     }
@@ -88,10 +86,6 @@ fn main() {
     println!();
 
     // numbers by my bro
-    cpu.push8(42);
-    cpu.push8(67);
-    cpu.push8(69);
-    cpu.push8(52);
     cpu.show_stack();
     VideoKontroller2::disp(&mut cpu.vc, b"ok so\n");
     VideoKontroller2::disp(&mut cpu.vc, b"it works\n");

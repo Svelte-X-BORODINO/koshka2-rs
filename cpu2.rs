@@ -81,7 +81,7 @@ impl KoshkaCPU2 {
 
     /// Panic with exit.
     pub fn panic_cpu(&mut self, res: &str) -> ! {
-        VideoKontroller2::disp(&mut self.vc, &format!("panic cpu#0 res={}", res).as_bytes());
+        VideoKontroller2::disp(&mut self.vc, &format!("panic cpu#0 res={}\n", res).as_bytes());
         exit(1)
     }
     // someone: where is ALU functions?
@@ -164,9 +164,7 @@ impl KoshkaCPU2 {
 
             print!("${:02X} ", self.memory[i]);
         }
-
         println!(); 
     }
-
-
 }
+// 170-th line :D
