@@ -494,7 +494,8 @@ impl KRSAssembler2 {
                 Instruction2::Not(cpu, 4);
                 3
             },
-            // ...
+            // ldb ax [imm24]
+            // TODO
             // xor bx $imm16
             0xC1 => {
                 let low = cpu.read8(cpu.pc + 1);

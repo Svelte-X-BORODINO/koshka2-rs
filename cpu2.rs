@@ -109,8 +109,8 @@ impl KoshkaCPU2 {
     pub fn push16(&mut self, data: u16) {
         let low = data as u8;
         let high = (data >> 8) as u8;
-        Self::push8(self, high);
         Self::push8(self, low);
+        Self::push8(self, high);
     }
 
     /// Pop a byte from the stack.
@@ -124,7 +124,7 @@ impl KoshkaCPU2 {
     pub fn pop16(&mut self) -> u16 {
         let low = self.pop8() as u16;
         let high = self.pop8() as u16;
-        (high << 8) | low
+        (low << 8) | high
     }
 
     /// Show the stack.

@@ -1,22 +1,22 @@
 ; SOON(MAYBE).
-.pos $05000
+.pos $01080
 .entry main
 
 puts:
     push $1
 .loop:
-    ldb ax adv
-    cmp ax $00
+    ldb %ax %adv
+    cmp %ax $00
     gz .done
-    invoke 1
+    invoke $1
     goto .loop
 .done:
-	inc sp
+	inc %sp
 	done
 
 
 main:
-    mov adv hw_msg
+    mov %adv %hw_msg
     gsub puts
     hlt
 

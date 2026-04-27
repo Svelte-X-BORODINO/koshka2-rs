@@ -7,11 +7,11 @@
 //! ## Structs:
 //! 
 //! IATEntry:
-//!     num unsig8:      number of interrupt
-//!     handler unsig24:  address to handler of interrupt
+//!     [num] unsig8:      number of interrupt
+//!     [handler] unsig24:  address to handler of interrupt
 //! 
 //! IATable:
-//!     entries [Option<IATEntry>; 256]: entries list
+//!     entries `[Option<IATEntry>; 256]`: entries list
 use crate::u24::u24;
 
 #[derive(Clone, Copy)]
@@ -38,10 +38,10 @@ impl IATable {
     /// Load IAT from memory.
     ///
     /// Layout per entry (4 bytes):
-    ///   [0] num (u8)
-    ///   [1] handler low  (b1)
-    ///   [2] handler mid  (b2)
-    ///   [3] handler high (b3)
+    ///   0 num (u8)
+    ///   1 handler low  (b1)
+    ///   2 handler mid  (b2)
+    ///   3 handler high (b3)
     ///
     /// If a slot looks empty (num==0 and handler==0), we store None.
     pub fn load_iat(&mut self, cpu: &mut crate::cpu2::KoshkaCPU2, base: u32) {
