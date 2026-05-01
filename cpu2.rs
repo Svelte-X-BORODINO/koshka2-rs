@@ -1,6 +1,6 @@
 //! The Heart Of Koshka II RS CPU
 //! 
-//! This module is implements all CPU methods... WITHOUT STANDARD LIBRARY( but with core :D ).
+//! This module implements all CPU methods... WITHOUT STANDARD LIBRARY( but with core :D ).
 //! 
 //! # Example:
 //! ```no_run
